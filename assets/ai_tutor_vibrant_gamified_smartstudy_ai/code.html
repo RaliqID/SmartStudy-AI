@@ -1,0 +1,396 @@
+<!DOCTYPE html><html class="h-full bg-surface" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>SmartStudy AI - AI Tutor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary": "#755b00",
+                      "on-background": "#1a1c1b",
+                      "inverse-surface": "#2f3130",
+                      "primary": "#2b6c00",
+                      "on-secondary-fixed": "#001e2e",
+                      "background": "#faf9f8",
+                      "secondary-fixed": "#c8e6ff",
+                      "surface": "#faf9f8",
+                      "outline": "#6f7b64",
+                      "secondary-container": "#2fb8ff",
+                      "outline-variant": "#becbb1",
+                      "on-secondary-fixed-variant": "#004c6e",
+                      "tertiary-container": "#ddad00",
+                      "surface-container-low": "#f4f3f2",
+                      "inverse-on-surface": "#f1f1ef",
+                      "on-tertiary-container": "#574300",
+                      "error-container": "#ffdad6",
+                      "primary-fixed": "#87fe45",
+                      "primary-fixed-dim": "#6be026",
+                      "tertiary-fixed": "#ffdf92",
+                      "surface-tint": "#2b6c00",
+                      "on-tertiary-fixed-variant": "#594400",
+                      "on-primary-container": "#1e5000",
+                      "on-primary-fixed": "#082100",
+                      "on-primary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "inverse-primary": "#6be026",
+                      "surface-bright": "#faf9f8",
+                      "surface-container-high": "#e9e8e7",
+                      "surface-variant": "#e3e2e1",
+                      "primary-container": "#58cc02",
+                      "on-primary-fixed-variant": "#1f5100",
+                      "secondary-fixed-dim": "#88ceff",
+                      "surface-container": "#eeeeec",
+                      "surface-dim": "#dadad9",
+                      "on-secondary-container": "#004666",
+                      "on-error-container": "#93000a",
+                      "error": "#ba1a1a",
+                      "on-surface": "#1a1c1b",
+                      "on-error": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "secondary": "#006590",
+                      "on-surface-variant": "#3f4a36",
+                      "tertiary-fixed-dim": "#f4bf00",
+                      "surface-container-highest": "#e3e2e1",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-fixed": "#241a00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "12px",
+                      "lg": "24px",
+                      "depth-sm": "2px",
+                      "md": "16px",
+                      "base": "4px",
+                      "xs": "8px",
+                      "depth-md": "4px",
+                      "xl": "32px"
+              },
+              "fontFamily": {
+                      "label-bold": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "display": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "display-mobile": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ]
+              },
+              "fontSize": {
+                      "label-bold": [
+                              "14px",
+                              {
+                                      "lineHeight": "18px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "30px",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-md": [
+                              "15px",
+                              {
+                                      "lineHeight": "22px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-mobile": [
+                              "26px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-lg": [
+                              "17px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .chunky-border {
+            border: 2px solid #E5E5E5;
+            border-bottom-width: 4px;
+        }
+        .chunky-border-primary {
+            border: 2px solid #1e5000;
+            border-bottom-width: 4px;
+        }
+        .chunky-button {
+            transition: all 0.1s ease;
+        }
+        .chunky-button:active {
+            transform: translateY(2px);
+            border-bottom-width: 2px;
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<body class="flex h-full bg-surface text-on-surface overflow-hidden max-w-[1440px] mx-auto" style="height: 1024px;">
+<!-- SideNavBar (from JSON) -->
+<aside class="flex flex-col h-full p-lg gap-sm h-screen w-64 border-r-2 border-outline-variant bg-surface dark:bg-on-surface-variant flex-shrink-0 relative z-20 hidden md:flex">
+<div class="flex items-center gap-sm mb-xl p-sm">
+
+<div class="flex flex-col">
+<span class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed font-black">SmartStudy AI</span>
+<span class="text-sm font-label-bold text-on-surface-variant uppercase tracking-wider">Level 12 Scholar</span>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-sm">
+<a class="flex items-center gap-md px-md py-sm font-body-lg text-body-lg text-on-surface-variant hover:bg-surface-container-high rounded-xl hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:border-b-2" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-body-lg text-body-lg text-on-surface-variant hover:bg-surface-container-high rounded-xl hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:border-b-2" href="#">
+<span class="material-symbols-outlined text-xl">book</span>
+                Subjects
+            </a>
+<a aria-current="page" class="flex items-center gap-md px-md py-sm font-body-lg text-body-lg bg-secondary-container text-on-secondary-container border-b-4 border-secondary font-bold rounded-xl hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:border-b-2" href="#">
+<span class="material-symbols-outlined text-xl">psychology</span>
+                AI Tutor
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-body-lg text-body-lg text-on-surface-variant hover:bg-surface-container-high rounded-xl hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:border-b-2" href="#">
+<span class="material-symbols-outlined text-xl">quiz</span>
+                Quiz
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-body-lg text-body-lg text-on-surface-variant hover:bg-surface-container-high rounded-xl hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:border-b-2" href="#">
+<span class="material-symbols-outlined text-xl">trending_up</span>
+                Progress
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-body-lg text-body-lg text-on-surface-variant hover:bg-surface-container-high rounded-xl hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:border-b-2" href="#">
+<span class="material-symbols-outlined text-xl">calendar_today</span>
+                Schedule
+            </a>
+</nav>
+<div class="mt-auto flex flex-col gap-sm pt-md border-t-2 border-outline-variant">
+<a class="flex items-center gap-md px-md py-sm font-body-lg text-body-lg text-on-surface-variant hover:bg-surface-container-high rounded-xl hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:border-b-2" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-md px-md py-sm font-body-lg text-body-lg text-on-surface-variant hover:bg-surface-container-high rounded-xl hover:translate-y-[-2px] transition-transform active:translate-y-[2px] active:border-b-2" href="#">
+<span class="material-symbols-outlined text-xl">logout</span>
+                Logout
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex overflow-hidden h-full">
+<!-- Chat Interface (Left) -->
+<section class="flex-1 flex flex-col h-full bg-white relative z-10">
+<!-- Header -->
+<header class="h-20 flex items-center px-lg border-b-2 border-outline-variant bg-white z-20">
+<h1 class="font-headline-lg text-headline-lg flex items-center gap-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary text-[32px]">auto_awesome</span>
+                    AI Tutor
+                </h1>
+</header>
+<!-- Chat History Canvas -->
+<div class="flex-1 overflow-y-auto p-lg flex flex-col gap-lg bg-surface-bright">
+<!-- Student Message -->
+<div class="flex flex-col items-end w-full max-w-3xl mx-auto">
+<div class="bg-surface-container-high rounded-2xl rounded-tr-sm px-md py-sm border-2 border-outline-variant border-b-[4px] font-body-md text-on-surface shadow-sm max-w-[80%]">
+<p class="">Why does 2x + 5 = 15 mean x = 5?</p>
+</div>
+</div>
+<!-- AI Tutor Response -->
+<div class="flex flex-col items-start w-full max-w-3xl mx-auto gap-sm">
+<div class="flex items-end gap-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-container border-2 border-outline-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-secondary-container">psychology</span>
+</div>
+<div class="bg-white rounded-2xl rounded-tl-sm p-md border-2 border-outline-variant border-b-[4px] shadow-sm max-w-[85%]">
+<p class="font-body-md text-on-surface mb-md">Great question! Let's solve it step-by-step together:</p>
+<!-- Tactile Step Cards -->
+<div class="flex flex-col gap-sm">
+<div class="bg-surface-container rounded-xl p-sm border-2 border-outline-variant border-b-[4px] flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container font-label-bold flex items-center justify-center border-2 border-primary-fixed-dim">1</div>
+<p class="font-body-md text-on-surface flex-1">Subtract 5 from both sides</p>
+<div class="bg-white px-sm py-xs rounded-lg border-2 border-outline-variant font-label-bold text-secondary">15 - 5 = 10</div>
+</div>
+<div class="bg-surface-container rounded-xl p-sm border-2 border-outline-variant border-b-[4px] flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container font-label-bold flex items-center justify-center border-2 border-primary-fixed-dim">2</div>
+<p class="font-body-md text-on-surface flex-1">We are left with</p>
+<div class="bg-white px-sm py-xs rounded-lg border-2 border-outline-variant font-label-bold text-secondary">2x = 10</div>
+</div>
+<div class="bg-surface-container rounded-xl p-sm border-2 border-outline-variant border-b-[4px] flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container font-label-bold flex items-center justify-center border-2 border-primary-fixed-dim">3</div>
+<p class="font-body-md text-on-surface flex-1">Divide both sides by 2</p>
+<div class="bg-white px-sm py-xs rounded-lg border-2 border-outline-variant font-label-bold text-secondary">10 ÷ 2 = 5</div>
+</div>
+</div>
+<p class="font-body-md text-on-surface mt-md font-bold text-primary">So, x = 5! Make sense?</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="bg-white border-t-2 border-outline-variant p-lg flex flex-col gap-md z-20">
+<!-- Quick Actions -->
+<div class="flex gap-sm overflow-x-auto pb-sm max-w-3xl mx-auto w-full no-scrollbar">
+<button class="bg-surface-container-lowest border-2 border-outline-variant border-b-[4px] rounded-full px-md py-xs font-label-bold text-on-surface whitespace-nowrap chunky-button hover:bg-surface-container flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">lightbulb</span>
+                        Explain Simpler
+                    </button>
+<button class="bg-surface-container-lowest border-2 border-outline-variant border-b-[4px] rounded-full px-md py-xs font-label-bold text-on-surface whitespace-nowrap chunky-button hover:bg-surface-container flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">extension</span>
+                        Give Example
+                    </button>
+<button class="bg-secondary-container border-2 border-secondary border-b-[4px] rounded-full px-md py-xs font-label-bold text-on-secondary-container whitespace-nowrap chunky-button hover:opacity-90 flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+                        Create Practice Quiz
+                    </button>
+</div>
+<!-- Input Box -->
+<div class="max-w-3xl mx-auto w-full flex items-end gap-sm relative">
+<div class="flex-1 bg-surface-container-highest border-2 border-outline-variant rounded-[24px] p-2 flex items-center">
+<textarea class="w-full bg-transparent border-none focus:ring-0 resize-none font-body-md text-on-surface min-h-[48px] max-h-[120px] py-3 px-4 overflow-y-auto" placeholder="Ask about this lesson..." rows="1"></textarea>
+</div>
+<button class="bg-primary hover:bg-primary-container text-on-primary font-label-bold px-lg py-sm rounded-2xl h-[56px] border-2 border-primary-fixed border-b-[4px] chunky-button flex items-center justify-center gap-xs shrink-0">
+<span class="material-symbols-outlined">send</span>
+                        Send
+                    </button>
+</div>
+</div>
+</section>
+<!-- Contextual Sidebar (Right) -->
+<aside class="w-80 border-l-2 border-outline-variant bg-surface flex flex-col h-full overflow-y-auto hidden lg:flex shrink-0">
+<div class="p-lg flex flex-col gap-xl">
+<!-- Currently Studying -->
+<div class="flex flex-col gap-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary">menu_book</span>
+                        Currently Studying
+                    </h2>
+<div class="bg-white border-2 border-outline-variant border-b-[4px] rounded-2xl p-md flex flex-col gap-md">
+<div class="w-full h-32 rounded-xl border-2 border-outline-variant overflow-hidden relative">
+<img class="w-full h-full object-cover" data-alt="A stylized 3D illustration of floating mathematical symbols, a colorful abacus, and geometric shapes in a bright, gamified educational setting with soft lighting and a light mode color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_RsKaP-_WI24VwU4gHy5XT1g2KIugunmVNHjSZukfRZHJKYyVFDBpMM39o5UNaq2WblP8TnJ82ETd82IYkliaK8wJxqpL8QINROBeCJXRHoTFHDPtY_yUmLJJn2NdOcNUY-Dtt0Up2iY_mj8t1cKX93FS0vlOXmcY0fbPflDht56Wvi1ME4v_0bDbMOd3iMd3Z6eKlKQJMzxqqodFx68rSfWsh0Lxz2MWGcEwlEIrAKofKaNVkGrZXg">
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+<span class="absolute bottom-2 left-2 text-white font-label-bold z-10">Mathematics</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg text-on-surface font-bold">Linear Equations</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Unit 3, Lesson 2</p>
+</div>
+<!-- Chunky Progress Bar -->
+<div class="flex flex-col gap-base">
+<div class="flex justify-between font-label-bold text-xs text-on-surface-variant">
+<span class="">Mastery</span>
+<span class="">65%</span>
+</div>
+<div class="h-4 bg-surface-container-high rounded-full overflow-hidden border-2 border-outline-variant relative">
+<div class="absolute top-0 left-0 h-full bg-primary-container rounded-full border-r-2 border-primary-fixed-dim w-[65%]">
+<div class="absolute top-0 left-0 w-full h-1/2 bg-white/30"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Learning Buddy -->
+<div class="flex flex-col gap-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary">smart_toy</span>
+                        Learning Buddy
+                    </h2>
+<div class="bg-secondary-fixed border-2 border-outline-variant border-b-[4px] rounded-2xl p-md flex items-center gap-md relative overflow-hidden">
+<div class="w-16 h-16 shrink-0 rounded-full bg-white border-2 border-outline-variant overflow-hidden z-10">
+<img class="w-full h-full object-cover" data-alt="A cute, highly stylized 3D robot mascot character designed for a gamified learning app, featuring soft rounded edges, expressive glowing eyes, and painted in bright pastel violet and indigo colors against a clean white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrCBoCy72xs-Cbz8alc6z6Eeq7QTisrrVLyH-1gsxtvyE6UjQ1jJKBzg2YWWwt8q52sX4S9O4KgMPnp1iAD0Q-LMmuVp37k9uyHQJlZUdJvi2n--i20XT0U5RvZYAuPJfCRewC-OzeBmNt9YFtABwCmNOywepmawOp1zmGcdzr_-bbZz5rEb7ruuTfmXieuZargJ_-Cz1H4OvOSZDpydOQc3_oKdNMONEpo6mYmni4hyz8O0WIs9F4VQ">
+</div>
+<div class="z-10 flex-1">
+<div class="bg-white rounded-xl p-xs border-2 border-outline-variant font-label-bold text-on-surface text-xs relative">
+                                 "You're doing great! Keep up the good work!"
+                                 <!-- Speech Bubble Tail -->
+<div class="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-l-2 border-b-2 border-outline-variant transform rotate-45"></div>
+</div>
+</div>
+<!-- Decorative background elements -->
+<div class="absolute -right-4 -bottom-4 opacity-20 pointer-events-none">
+<span class="material-symbols-outlined text-[100px] text-secondary">auto_awesome</span>
+</div>
+</div>
+</div>
+<!-- Related Topics -->
+<div class="flex flex-col gap-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-xs">
+<span class="material-symbols-outlined text-tertiary">explore</span>
+                        Related Topics
+                    </h2>
+<div class="flex flex-col gap-sm">
+<!-- Card 1 -->
+<div class="bg-white border-2 border-outline-variant border-b-[4px] rounded-xl p-sm flex items-center gap-md hover:bg-surface-container-lowest transition-colors cursor-pointer chunky-button">
+<div class="w-10 h-10 rounded-lg bg-tertiary-container text-on-tertiary-container flex items-center justify-center border-2 border-outline-variant">
+<span class="material-symbols-outlined">calculate</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body-md text-body-md text-on-surface font-bold">Inequalities</h4>
+<p class="text-xs font-body-md text-on-surface-variant">Next Lesson</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+<!-- Card 2 -->
+<div class="bg-white border-2 border-outline-variant border-b-[4px] rounded-xl p-sm flex items-center gap-md hover:bg-surface-container-lowest transition-colors cursor-pointer chunky-button">
+<div class="w-10 h-10 rounded-lg bg-surface-container text-on-surface-variant flex items-center justify-center border-2 border-outline-variant">
+<span class="material-symbols-outlined">functions</span>
+</div>
+<div class="flex-1">
+<h4 class="font-body-md text-body-md text-on-surface font-bold">Algebra Basics</h4>
+<p class="text-xs font-body-md text-on-surface-variant">Review</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</main>
+
+
+</body></html>

@@ -1,0 +1,26 @@
+- generic [ref=f6e3]:
+  - generic [ref=f6e4]:
+    - generic [ref=f6e5]:
+      - generic [aria-hidden] [ref=f6e7]: school
+      - heading "SmartStudy AI" [level=1] [ref=f6e8]
+    - paragraph [ref=f6e9]: Learn smarter with AI tutor, gamified quizzes, and progress tracking.
+    - generic [ref=f6e10]:
+      - link "Log in" [ref=f6e11] [cursor=pointer]:
+        - /url: http://localhost:8000/login
+      - link "Register" [ref=f6e12] [cursor=pointer]:
+        - /url: http://localhost:8000/register
+  - generic [ref=f6e14]:
+    - generic [ref=f6e15]:
+      - generic [aria-hidden] [ref=f6e16]: psychology
+      - heading "AI Tutor" [level=3] [ref=f6e17]
+      - paragraph [ref=f6e18]: Get step-by-step explanations tailored to your learning pace.
+    - generic [ref=f6e19]:
+      - generic [aria-hidden] [ref=f6e20]: quiz
+      - heading "Quiz Challenges" [level=3] [ref=f6e21]
+      - paragraph [ref=f6e22]: Test your knowledge and earn XP with every correct answer.
+    - generic [ref=f6e23]:
+      - generic [aria-hidden] [ref=f6e24]: trending_up
+      - heading "Track Progress" [level=3] [ref=f6e25]
+      - paragraph [ref=f6e26]: See your streaks, mastery, and achievements all in one place.
+  - contentinfo [ref=f6e27]:
+    - paragraph [ref=f6e28]: © 2026 SmartStudy AI — Learn smarter, not harder.

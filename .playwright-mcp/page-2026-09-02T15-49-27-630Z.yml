@@ -1,0 +1,38 @@
+- generic [ref=f9e3]:
+  - complementary [ref=f9e4]:
+    - generic [aria-hidden]: school
+    - generic [aria-hidden]: psychology
+    - generic [aria-hidden]: quiz
+    - generic [ref=f9e5]:
+      - generic [ref=f9e6]:
+        - generic [aria-hidden] [ref=f9e8]: school
+        - generic [ref=f9e9]:
+          - paragraph [ref=f9e10]: SmartStudy AI
+          - paragraph [ref=f9e11]: Learn smarter, not harder
+      - generic [ref=f9e12]:
+        - paragraph [ref=f9e13]: Your AI-powered study companion — master any subject with bite-sized lessons, gamified quizzes, and a streak worth keeping.
+        - generic [ref=f9e14]:
+          - generic [aria-hidden] [ref=f9e15]: format_quote
+          - paragraph [ref=f9e16]: "\"Learning is a treasure that follows its owner everywhere.\""
+          - paragraph [ref=f9e17]: — Keep showing up daily
+  - main [ref=f9e18]:
+    - generic [ref=f9e21]:
+      - heading "Start learning today!" [level=2] [ref=f9e22]
+      - generic [ref=f9e23]:
+        - generic [ref=f9e24]: Name
+        - textbox "Name" [active] [ref=f9e25]
+      - generic [ref=f9e26]:
+        - generic [ref=f9e27]: Email
+        - textbox "Email" [ref=f9e28]
+      - generic [ref=f9e29]:
+        - generic [ref=f9e30]: Password
+        - textbox "Password" [ref=f9e31]
+      - generic [ref=f9e32]:
+        - generic [ref=f9e33]: Confirm Password
+        - textbox "Confirm Password" [ref=f9e34]
+      - button "Register" [ref=f9e35] [cursor=pointer]
+      - paragraph [ref=f9e36]: Registering as a student. Teacher accounts are created by admins.
+      - paragraph [ref=f9e37]:
+        - text: Already have an account?
+        - link "Log in" [ref=f9e38] [cursor=pointer]:
+          - /url: http://localhost:8000/login

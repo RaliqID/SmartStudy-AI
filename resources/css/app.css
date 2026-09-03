@@ -1,0 +1,161 @@
+@import 'tailwindcss';
+@plugin "@tailwindcss/forms";
+
+/*
+|--------------------------------------------------------------------------
+| SmartStudy AI — Lumina Learning Design Tokens
+| Source: assets/lumina_learning/DESIGN.md (single source of truth for design)
+| Style: "Tactile Playfulness" — soft-3D, chunky geometry, no shadows.
+|--------------------------------------------------------------------------
+*/
+
+@theme {
+    /* Typography — Plus Jakarta Sans */
+    --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-headline-lg: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-headline-md: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-body-lg: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-body-md: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-label-bold: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+    /* Text scale (size / line-height / weight / tracking) */
+    --text-display: 32px;
+    --text-display--line-height: 40px;
+    --text-display--letter-spacing: -0.02em;
+    --text-display--font-weight: 800;
+
+    --text-display-mobile: 26px;
+    --text-display-mobile--line-height: 32px;
+    --text-display-mobile--font-weight: 800;
+
+    --text-headline-lg: 24px;
+    --text-headline-lg--line-height: 30px;
+    --text-headline-lg--font-weight: 800;
+
+    --text-headline-md: 20px;
+    --text-headline-md--line-height: 26px;
+    --text-headline-md--font-weight: 700;
+
+    --text-body-lg: 17px;
+    --text-body-lg--line-height: 24px;
+    --text-body-lg--font-weight: 600;
+
+    --text-body-md: 15px;
+    --text-body-md--line-height: 22px;
+    --text-body-md--font-weight: 500;
+
+    --text-label-bold: 14px;
+    --text-label-bold--line-height: 18px;
+    --text-label-bold--letter-spacing: 0.05em;
+    --text-label-bold--font-weight: 800;
+
+    /* Colors — Material-style vibrant palette */
+    --color-background: #faf9f8;
+    --color-on-background: #1a1c1b;
+    --color-surface: #faf9f8;
+    --color-surface-dim: #dadad9;
+    --color-surface-bright: #faf9f8;
+    --color-surface-variant: #e3e2e1;
+    --color-surface-container-lowest: #ffffff;
+    --color-surface-container-low: #f4f3f2;
+    --color-surface-container: #eeeeec;
+    --color-surface-container-high: #e9e8e7;
+    --color-surface-container-highest: #e3e2e1;
+    --color-on-surface: #1a1c1b;
+    --color-on-surface-variant: #3f4a36;
+    --color-inverse-surface: #2f3130;
+    --color-inverse-on-surface: #f1f1ef;
+
+    --color-outline: #6f7b64;
+    --color-outline-variant: #becbb1;
+
+    --color-primary: #2b6c00;
+    --color-on-primary: #ffffff;
+    --color-primary-container: #58cc02;
+    --color-on-primary-container: #1e5000;
+    --color-primary-fixed: #87fe45;
+    --color-primary-fixed-dim: #6be026;
+    --color-on-primary-fixed: #082100;
+    --color-on-primary-fixed-variant: #1f5100;
+    --color-inverse-primary: #6be026;
+    --color-surface-tint: #2b6c00;
+
+    --color-secondary: #006590;
+    --color-on-secondary: #ffffff;
+    --color-secondary-container: #2fb8ff;
+    --color-on-secondary-container: #004666;
+    --color-secondary-fixed: #c8e6ff;
+    --color-secondary-fixed-dim: #88ceff;
+    --color-on-secondary-fixed: #001e2e;
+    --color-on-secondary-fixed-variant: #004c6e;
+
+    --color-tertiary: #755b00;
+    --color-on-tertiary: #ffffff;
+    --color-tertiary-container: #ddad00;
+    --color-on-tertiary-container: #574300;
+    --color-tertiary-fixed: #ffdf92;
+    --color-tertiary-fixed-dim: #f4bf00;
+    --color-on-tertiary-fixed: #241a00;
+    --color-on-tertiary-fixed-variant: #594400;
+
+    --color-error: #ba1a1a;
+    --color-on-error: #ffffff;
+    --color-error-container: #ffdad6;
+    --color-on-error-container: #93000a;
+
+    /* Radius — hyper-rounded */
+    --radius-sm: 0.25rem;
+    --radius: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --radius-2xl: 1.25rem; /* 20px per design system */
+    --radius-full: 9999px;
+
+    /* Spacing — 4px base + depth units for 3D press effect */
+    --spacing-base: 4px;
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-depth-sm: 2px;
+    --spacing-depth-md: 4px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Custom utilities — chunky 3D borders & tactile buttons
+|--------------------------------------------------------------------------
+*/
+
+@utility chunky-border {
+    border: 2px solid var(--color-surface-container-highest);
+    border-bottom-width: 4px;
+}
+
+@utility btn-chunky {
+    border-bottom-width: 4px;
+    transition: transform 100ms ease, border-bottom-width 100ms ease;
+
+    &:active {
+        transform: translateY(var(--spacing-depth-sm));
+        border-bottom-width: 2px;
+    }
+}
+
+@layer base {
+    html {
+        @apply antialiased;
+    }
+
+    body {
+        @apply bg-background text-on-background font-sans text-body-md;
+    }
+
+    ::selection {
+        background-color: var(--color-primary-fixed);
+        color: var(--color-on-primary-fixed);
+    }
+}

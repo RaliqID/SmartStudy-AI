@@ -1,0 +1,38 @@
+- generic [ref=f7e3]:
+  - complementary [ref=f7e4]:
+    - generic [aria-hidden]: school
+    - generic [aria-hidden]: psychology
+    - generic [aria-hidden]: quiz
+    - generic [ref=f7e5]:
+      - generic [ref=f7e6]:
+        - generic [aria-hidden] [ref=f7e8]: school
+        - generic [ref=f7e9]:
+          - paragraph [ref=f7e10]: SmartStudy AI
+          - paragraph [ref=f7e11]: Learn smarter, not harder
+      - generic [ref=f7e12]:
+        - paragraph [ref=f7e13]: Your AI-powered study companion — master any subject with bite-sized lessons, gamified quizzes, and a streak worth keeping.
+        - generic [ref=f7e14]:
+          - generic [aria-hidden] [ref=f7e15]: format_quote
+          - paragraph [ref=f7e16]: "\"Learning is a treasure that follows its owner everywhere.\""
+          - paragraph [ref=f7e17]: — Keep showing up daily
+  - main [ref=f7e18]:
+    - generic [ref=f7e20]:
+      - generic:
+        - heading "Welcome back!" [level=2]
+        - generic:
+          - generic: Email
+          - textbox "Email" [active] [ref=f7e21]
+        - generic:
+          - generic: Password
+          - textbox "Password" [ref=f7e22]
+        - generic:
+          - generic [ref=f7e23]:
+            - checkbox "Remember me" [ref=f7e24]
+            - generic [ref=f7e25]: Remember me
+          - link "Forgot password?" [ref=f7e26] [cursor=pointer]:
+            - /url: http://localhost:8000/forgot-password
+        - button "Log in" [ref=f7e27]
+        - paragraph:
+          - text: Don't have an account?
+          - link "Register" [ref=f7e28] [cursor=pointer]:
+            - /url: http://localhost:8000/register

@@ -1,0 +1,11 @@
+/vendor
+/node_modules
+/.idea
+/.vscode
+/.git
+/database/*.sqlite
+/database/*.sqlite-journal
+/storage/logs/*
+/tests
+/assets
+.github

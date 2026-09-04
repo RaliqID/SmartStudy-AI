@@ -1,0 +1,90 @@
+- generic [ref=f6e38]:
+  - navigation [ref=f6e39]:
+    - generic [ref=f6e40]:
+      - generic [ref=f6e41]: SmartStudy AI
+      - generic [ref=f6e42]:
+        - img "Student" [ref=f6e43]
+        - generic [ref=f6e44]: Level 1 Scholar
+    - generic [ref=f6e45]:
+      - link "dashboard Dashboard" [ref=f6e46] [cursor=pointer]:
+        - /url: /student/dashboard
+        - generic [ref=f6e47]: dashboard
+        - generic [ref=f6e48]: Dashboard
+      - link "book Subjects" [ref=f6e49] [cursor=pointer]:
+        - /url: /student/subjects
+        - generic [ref=f6e50]: book
+        - generic [ref=f6e51]: Subjects
+      - link "psychology AI Tutor" [ref=f6e52] [cursor=pointer]:
+        - /url: /student/ai
+        - generic [ref=f6e53]: psychology
+        - generic [ref=f6e54]: AI Tutor
+      - link "quiz Quiz" [ref=f6e55] [cursor=pointer]:
+        - /url: /student/quiz
+        - generic [ref=f6e56]: quiz
+        - generic [ref=f6e57]: Quiz
+      - link "trending_up Progress" [ref=f6e58] [cursor=pointer]:
+        - /url: /student/progress
+        - generic [ref=f6e59]: trending_up
+        - generic [ref=f6e60]: Progress
+      - link "calendar_today Schedule" [ref=f6e61] [cursor=pointer]:
+        - /url: /student/schedule
+        - generic [ref=f6e62]: calendar_today
+        - generic [ref=f6e63]: Schedule
+    - generic [ref=f6e64]:
+      - link "settings Settings" [ref=f6e65] [cursor=pointer]:
+        - /url: /student/settings
+        - generic [ref=f6e66]: settings
+        - generic [ref=f6e67]: Settings
+      - button "logout Logout" [ref=f6e69]:
+        - generic [ref=f6e70]: logout
+        - generic [ref=f6e71]: Logout
+  - main [ref=f6e72]:
+    - generic [ref=f6e73]:
+      - heading "Good morning, Student!" [level=1] [ref=f6e74]
+      - paragraph [ref=f6e75]: Ready to crush some learning goals today?
+    - generic [ref=f6e76]:
+      - generic [ref=f6e77]:
+        - generic [ref=f6e78]:
+          - generic [aria-hidden] [ref=f6e80]: celebration
+          - generic [ref=f6e81]:
+            - heading "All caught up! 🎉" [level=2] [ref=f6e82]
+            - paragraph [ref=f6e83]: No material lined up right now — sharpen your skills with a quiz.
+            - link "Take a Quiz" [ref=f6e84] [cursor=pointer]:
+              - /url: http://localhost:8000/student/quiz
+        - generic [ref=f6e85]:
+          - generic [aria-hidden] [ref=f6e87]: auto_awesome
+          - generic [ref=f6e88]:
+            - heading "AI Recommendation" [level=3] [ref=f6e89]
+            - paragraph [ref=f6e90]: Start with foundational lessons in one subject to build initial understanding and momentum.
+        - generic [ref=f6e91]:
+          - generic [ref=f6e93]: stars
+          - generic [ref=f6e94]:
+            - generic [aria-hidden] [ref=f6e95]: task_alt
+            - heading "Daily Goal" [level=3] [ref=f6e96]
+          - generic [ref=f6e97]:
+            - generic [ref=f6e98]: 0/5 Lessons Completed
+            - generic [ref=f6e99]: 0%
+          - progressbar "Daily goal progress" [ref=f6e100]
+          - paragraph [ref=f6e101]: Keep going to maintain your 2-day streak!
+      - generic [ref=f6e102]:
+        - generic [ref=f6e103]:
+          - generic [ref=f6e104]:
+            - 'img "Overall progress: 0%" [ref=f6e105]':
+              - generic [ref=f6e109]: 0%
+            - generic [ref=f6e110]: Overall Progress
+          - generic [ref=f6e111]:
+            - generic [ref=f6e112]: —
+            - generic [ref=f6e114]: Recent Quiz
+        - generic [ref=f6e115]:
+          - generic [ref=f6e116]:
+            - heading "Upcoming" [level=3] [ref=f6e117]
+            - link "See All" [ref=f6e118] [cursor=pointer]:
+              - /url: http://localhost:8000/student/schedule
+          - paragraph [ref=f6e119]: Nothing scheduled — enjoy the break!
+        - generic [ref=f6e120]:
+          - generic [ref=f6e122]: auto_awesome
+          - generic [ref=f6e123]:
+            - heading "Leaderboard" [level=3] [ref=f6e124]
+            - link "Top 5" [ref=f6e125] [cursor=pointer]:
+              - /url: http://localhost:8000/student/leaderboard
+          - paragraph [ref=f6e126]: No rankings yet this week.

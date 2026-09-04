@@ -65,7 +65,7 @@ export default function Leaderboard({ auth, leaderboard = [], period = 'weekly',
             </header>
 
             {/* Period tabs */}
-            <div className="flex gap-xs mb-xl p-xs bg-surface-container border-2 border-surface-container-highest rounded-2xl" role="tablist" aria-label="Leaderboard period">
+            <div className="flex gap-xs mb-xl p-xs bg-surface-container border-2 border-surface-container-highest rounded-2xl overflow-x-auto" role="tablist" aria-label="Leaderboard period">
                 {periods.map((p) => {
                     const isActive = period === p.key;
                     return (
@@ -75,7 +75,7 @@ export default function Leaderboard({ auth, leaderboard = [], period = 'weekly',
                             role="tab"
                             aria-selected={isActive}
                             onClick={() => goPeriod(p.key)}
-                            className={`flex-1 flex items-center justify-center gap-xs px-sm py-sm rounded-xl font-label-bold text-label-bold uppercase transition-all ${
+                            className={`flex-1 flex items-center justify-center gap-xs px-sm py-sm rounded-xl font-label-bold text-label-bold uppercase whitespace-nowrap transition-all ${
                                 isActive
                                     ? 'bg-secondary-container text-on-secondary-container border-2 border-b-4 border-secondary'
                                     : 'text-on-surface-variant hover:bg-surface-container-high border-2 border-transparent'

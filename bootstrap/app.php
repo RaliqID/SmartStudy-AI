@@ -23,6 +23,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => \App\Http\Middleware\EnsureUserHasRole::class,
         ]);
+
+        // Guest pages (login/register) untuk user yang sudah login:
+        // redirect by-role, bukan hardcoded dashboard (teacher/admin kena 403).
+        $middleware->redirectUsersTo(fn () => auth()->user()->hasRole('admin')
+            ? route('admin.dashboard')
+            : (auth()->user()->hasRole('teacher') ? route('teacher.dashboard') : route('student.dashboard')));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

@@ -6,21 +6,25 @@ function ClassRow({ cls, onDelete }) {
     const color = cls.subject?.color || '#006590';
 
     return (
-        <div className="flex items-center gap-md p-md rounded-2xl border-2 border-b-4 bg-surface-container-lowest border-surface-container-highest flex-wrap sm:flex-nowrap">
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border-2 border-b-4" style={{ backgroundColor: `${color}1a`, color, borderColor: `${color}33` }}>
-                <span className="material-symbols-outlined" aria-hidden="true">{cls.subject?.icon || 'school'}</span>
+        <div className="flex flex-col gap-sm p-md rounded-2xl border-2 border-b-4 bg-surface-container-lowest border-surface-container-highest sm:flex-row sm:items-center sm:gap-md">
+            <div className="flex items-center gap-md min-w-0">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border-2 border-b-4" style={{ backgroundColor: `${color}1a`, color, borderColor: `${color}33` }}>
+                    <span className="material-symbols-outlined" aria-hidden="true">{cls.subject?.icon || 'school'}</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                    <p className="font-body-lg text-body-lg font-bold text-on-surface truncate">{cls.name}</p>
+                    <p className="font-body-md text-body-md text-on-surface-variant truncate">
+                        {cls.subject?.name || 'No subject'} · {cls.teacher?.name || 'No teacher'}
+                    </p>
+                </div>
             </div>
-            <div className="flex-1 min-w-0">
-                <p className="font-body-lg text-body-lg font-bold text-on-surface truncate">{cls.name}</p>
-                <p className="font-body-md text-body-md text-on-surface-variant truncate">
-                    {cls.subject?.name || 'No subject'} · {cls.teacher?.name || 'No teacher'}
-                </p>
+            <div className="flex items-center gap-2 sm:ml-auto shrink-0">
+                <span className="font-label-bold text-label-bold text-primary bg-primary-container/20 px-2 py-1 rounded-lg">{cls.students_count} student</span>
+                <span className="font-label-bold text-label-bold text-secondary bg-secondary-container/20 px-2 py-1 rounded-lg">{cls.join_code}</span>
+                <button type="button" onClick={() => onDelete(cls)} aria-label={`Delete ${cls.name}`} className="w-9 h-9 rounded-xl bg-error-container/40 text-error flex items-center justify-center border-2 border-error/20 border-b-4 hover:bg-error-container shrink-0">
+                    <span className="material-symbols-outlined text-[20px]" aria-hidden="true">delete</span>
+                </button>
             </div>
-            <span className="font-label-bold text-label-bold text-primary bg-primary-container/20 px-2 py-1 rounded-lg shrink-0">{cls.students_count} student</span>
-            <span className="font-label-bold text-label-bold text-secondary bg-secondary-container/20 px-2 py-1 rounded-lg shrink-0">{cls.join_code}</span>
-            <button type="button" onClick={() => onDelete(cls)} aria-label={`Delete ${cls.name}`} className="w-9 h-9 rounded-xl bg-error-container/40 text-error flex items-center justify-center border-2 border-error/20 border-b-4 hover:bg-error-container shrink-0">
-                <span className="material-symbols-outlined text-[20px]" aria-hidden="true">delete</span>
-            </button>
         </div>
     );
 }

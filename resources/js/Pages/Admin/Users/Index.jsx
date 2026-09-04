@@ -27,20 +27,22 @@ function StatusBadge({ active }) {
 
 function UserRow({ user, isSelf, onEdit, onToggle, onDelete }) {
     return (
-        <div className={`flex items-center gap-md p-md rounded-2xl border-2 border-b-4 bg-surface-container-lowest flex-wrap sm:flex-nowrap ${!user.is_active ? 'opacity-60' : ''}`}>
-            <img
-                src={user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=87fe45&color=082100&bold=true&size=64`}
-                alt={user.name}
-                className="w-11 h-11 rounded-full border-2 border-outline-variant object-cover shrink-0"
-                loading="lazy"
-            />
-            <div className="flex-1 min-w-0 sm:min-w-40">
-                <p className="font-body-md text-body-md font-bold text-on-surface truncate">
-                    {user.name}{isSelf && <span className="ml-2 text-xs font-label-bold text-primary">(Anda)</span>}
-                </p>
-                <p className="text-xs text-on-surface-variant truncate">{user.email}</p>
+        <div className={`flex flex-col gap-sm p-md rounded-2xl border-2 border-b-4 bg-surface-container-lowest sm:flex-row sm:items-center sm:gap-md ${!user.is_active ? 'opacity-60' : ''}`}>
+            <div className="flex items-center gap-md min-w-0">
+                <img
+                    src={user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=87fe45&color=082100&bold=true&size=64`}
+                    alt={user.name}
+                    className="w-11 h-11 rounded-full border-2 border-outline-variant object-cover shrink-0"
+                    loading="lazy"
+                />
+                <div className="flex-1 min-w-0">
+                    <p className="font-body-md text-body-md font-bold text-on-surface truncate">
+                        {user.name}{isSelf && <span className="ml-2 text-xs font-label-bold text-primary">(Anda)</span>}
+                    </p>
+                    <p className="text-xs text-on-surface-variant truncate">{user.email}</p>
+                </div>
             </div>
-            <div className="flex items-center gap-1 shrink-0">
+            <div className="flex items-center gap-1 sm:ml-auto shrink-0">
                 <RoleBadge role={user.role} />
                 <StatusBadge active={user.is_active} />
             </div>
@@ -261,13 +263,13 @@ export default function Index({ auth, users = {}, roles = [], filters = {} }) {
                         className="w-full bg-surface-container-lowest border-2 border-outline-variant rounded-2xl pl-xl pr-md py-sm font-body-md text-on-surface focus:outline-none focus:border-primary"
                     />
                 </div>
-                <div className="flex gap-1 bg-surface-container rounded-2xl p-1 border-2 border-surface-container-highest">
+                <div className="flex gap-1 bg-surface-container rounded-2xl p-1 border-2 border-surface-container-highest overflow-x-auto">
                     {['', ...roles].map((r) => (
                         <button
                             key={r || 'all'}
                             type="button"
                             onClick={() => applyFilter({ search: filters.search || '', role: r })}
-                            className={`px-md py-sm rounded-xl font-label-bold text-label-bold uppercase text-xs transition-colors ${
+                            className={`px-md py-sm rounded-xl font-label-bold text-label-bold uppercase text-xs whitespace-nowrap transition-colors ${
                                 (filters.role || '') === r
                                     ? 'bg-secondary-container text-on-secondary-container border-b-4 border-secondary'
                                     : 'text-on-surface-variant hover:bg-surface-container-high'

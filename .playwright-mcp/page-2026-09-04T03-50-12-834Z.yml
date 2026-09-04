@@ -1,0 +1,127 @@
+- generic [ref=f23e3]:
+  - banner [ref=f23e4]:
+    - generic [ref=f23e5]:
+      - generic [aria-hidden] [ref=f23e7]: shield_person
+      - generic [ref=f23e8]: Admin
+    - generic [ref=f23e9]:
+      - link "Dashboard" [ref=f23e10] [cursor=pointer]:
+        - /url: /admin/dashboard
+        - generic [ref=f23e11]: dashboard
+      - link "Profile" [ref=f23e12] [cursor=pointer]:
+        - /url: /profile
+        - generic [ref=f23e13]: account_circle
+  - main [ref=f23e15]:
+    - generic [ref=f23e16]:
+      - generic [ref=f23e17]:
+        - heading "Kelola User" [level=1] [ref=f23e18]
+        - paragraph [ref=f23e19]: 4 user terdaftar.
+      - button "Invite User" [ref=f23e20]:
+        - generic [aria-hidden] [ref=f23e21]: group_add
+        - text: Invite User
+    - generic [ref=f23e22]:
+      - generic [ref=f23e23]:
+        - generic [aria-hidden] [ref=f23e24]: search
+        - searchbox "Cari user" [ref=f23e25]
+      - generic [ref=f23e26]:
+        - button "Semua" [ref=f23e27]
+        - button "student" [ref=f23e28]
+        - button "teacher" [ref=f23e29]
+        - button "admin" [ref=f23e30]
+    - generic [ref=f23e31]:
+      - generic [ref=f23e32]:
+        - generic [ref=f23e33]:
+          - img "Raliq Hidayat" [ref=f23e34]
+          - generic [ref=f23e35]:
+            - paragraph [ref=f23e36]: Raliq Hidayat
+            - paragraph [ref=f23e37]: copilotraliq0@gmail.com
+        - generic [ref=f23e38]:
+          - generic [ref=f23e39]:
+            - generic [aria-hidden] [ref=f23e40]: person
+            - text: student
+          - generic [ref=f23e41]:
+            - generic [aria-hidden] [ref=f23e42]: check_circle
+            - text: Aktif
+        - generic [ref=f23e43]:
+          - button "Edit Raliq Hidayat" [ref=f23e44]:
+            - generic [aria-hidden] [ref=f23e45]: edit
+          - button "Toggle active Raliq Hidayat" [ref=f23e46]:
+            - generic [aria-hidden] [ref=f23e47]: person_off
+          - button "Delete Raliq Hidayat" [ref=f23e48]:
+            - generic [aria-hidden] [ref=f23e49]: delete
+      - generic [ref=f23e50]:
+        - generic [ref=f23e51]:
+          - img "Student" [ref=f23e52]
+          - generic [ref=f23e53]:
+            - paragraph [ref=f23e54]: Student
+            - paragraph [ref=f23e55]: student@smartstudy.ai
+        - generic [ref=f23e56]:
+          - generic [ref=f23e57]:
+            - generic [aria-hidden] [ref=f23e58]: person
+            - text: student
+          - generic [ref=f23e59]:
+            - generic [aria-hidden] [ref=f23e60]: check_circle
+            - text: Aktif
+        - generic [ref=f23e61]:
+          - button "Edit Student" [ref=f23e62]:
+            - generic [aria-hidden] [ref=f23e63]: edit
+          - button "Toggle active Student" [ref=f23e64]:
+            - generic [aria-hidden] [ref=f23e65]: person_off
+          - button "Delete Student" [ref=f23e66]:
+            - generic [aria-hidden] [ref=f23e67]: delete
+      - generic [ref=f23e68]:
+        - generic [ref=f23e69]:
+          - img "Teacher" [ref=f23e70]
+          - generic [ref=f23e71]:
+            - paragraph [ref=f23e72]: Teacher
+            - paragraph [ref=f23e73]: teacher@smartstudy.ai
+        - generic [ref=f23e74]:
+          - generic [ref=f23e75]:
+            - generic [aria-hidden] [ref=f23e76]: school
+            - text: teacher
+          - generic [ref=f23e77]:
+            - generic [aria-hidden] [ref=f23e78]: check_circle
+            - text: Aktif
+        - generic [ref=f23e79]:
+          - button "Edit Teacher" [ref=f23e80]:
+            - generic [aria-hidden] [ref=f23e81]: edit
+          - button "Toggle active Teacher" [ref=f23e82]:
+            - generic [aria-hidden] [ref=f23e83]: person_off
+          - button "Delete Teacher" [ref=f23e84]:
+            - generic [aria-hidden] [ref=f23e85]: delete
+      - generic [ref=f23e86]:
+        - generic [ref=f23e87]:
+          - img "Admin" [ref=f23e88]
+          - generic [ref=f23e89]:
+            - paragraph [ref=f23e90]: Admin(Anda)
+            - paragraph [ref=f23e91]: admin@smartstudy.ai
+        - generic [ref=f23e92]:
+          - generic [ref=f23e93]:
+            - generic [aria-hidden] [ref=f23e94]: shield_person
+            - text: admin
+          - generic [ref=f23e95]:
+            - generic [aria-hidden] [ref=f23e96]: check_circle
+            - text: Aktif
+        - generic [ref=f23e97]:
+          - button "Edit Admin" [ref=f23e98]:
+            - generic [aria-hidden] [ref=f23e99]: edit
+          - button "Toggle active Admin" [disabled] [ref=f23e100]:
+            - generic [aria-hidden] [ref=f23e101]: person_off
+          - button "Delete Admin" [disabled] [ref=f23e102]:
+            - generic [aria-hidden] [ref=f23e103]: delete
+  - navigation [ref=f23e104]:
+    - link "dashboard Dashboard" [ref=f23e105] [cursor=pointer]:
+      - /url: /admin/dashboard
+      - generic [ref=f23e106]: dashboard
+      - generic [ref=f23e107]: Dashboard
+    - link "manage_accounts Kelola User" [ref=f23e108] [cursor=pointer]:
+      - /url: /admin/users
+      - generic [ref=f23e109]: manage_accounts
+      - generic [ref=f23e110]: Kelola User
+    - link "science Kelola Subject" [ref=f23e111] [cursor=pointer]:
+      - /url: /admin/subjects
+      - generic [ref=f23e112]: science
+      - generic [ref=f23e113]: Kelola Subject
+    - link "school Kelola Kelas" [ref=f23e114] [cursor=pointer]:
+      - /url: /admin/classes
+      - generic [ref=f23e115]: school
+      - generic [ref=f23e116]: Kelola Kelas

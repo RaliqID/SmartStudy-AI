@@ -19,7 +19,7 @@ function SubjectCard({ subject, onEdit, onDelete, onToggle }) {
     return (
         <div className={`bg-surface-container-lowest rounded-2xl chunky-border p-lg flex flex-col gap-sm transition-opacity ${!subject.is_active ? 'opacity-50' : ''}`}>
             <div className="flex items-start justify-between gap-sm">
-                <div className="flex items-center gap-md">
+                <div className="flex items-center gap-md min-w-0 flex-1">
                     <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border-2 border-b-4" style={{ backgroundColor: `${color}1a`, color, borderColor: `${color}33` }}>
                         <span className="material-symbols-outlined" aria-hidden="true">{subject.icon || 'science'}</span>
                     </div>

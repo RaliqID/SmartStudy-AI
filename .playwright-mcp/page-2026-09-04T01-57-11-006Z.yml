@@ -1,0 +1,121 @@
+- generic [ref=f7e3]:
+  - banner [ref=f7e4]:
+    - generic [ref=f7e5]: SmartStudy AI
+    - generic [ref=f7e6]:
+      - link "Notifications" [ref=f7e7] [cursor=pointer]:
+        - /url: /student/notifications
+        - generic [ref=f7e8]: notifications
+      - link "Profile" [ref=f7e9] [cursor=pointer]:
+        - /url: /profile
+        - generic [ref=f7e10]: account_circle
+  - main [ref=f7e12]:
+    - generic [ref=f7e13]:
+      - heading "Subjects" [level=1] [ref=f7e14]
+      - paragraph [ref=f7e15]: Explore your learning materials.
+    - generic [ref=f7e16]:
+      - generic [aria-hidden]: search
+      - searchbox "Search subjects" [ref=f7e17]
+    - generic [ref=f7e18]:
+      - link [ref=f7e19] [cursor=pointer]:
+        - /url: http://localhost:8000/student/subjects/mathematics
+        - generic [aria-hidden] [ref=f7e21]: calculate
+        - heading "Mathematics" [level=2] [ref=f7e22]
+        - paragraph [ref=f7e23]: Master algebra, geometry, and calculus step by step.
+        - generic [ref=f7e24]:
+          - generic [aria-hidden] [ref=f7e25]: layers
+          - text: 4 Units
+        - generic [ref=f7e26]:
+          - text: Open
+          - generic [aria-hidden] [ref=f7e27]: arrow_forward
+      - link [ref=f7e28] [cursor=pointer]:
+        - /url: http://localhost:8000/student/subjects/physics
+        - generic [aria-hidden] [ref=f7e30]: science
+        - heading "Physics" [level=2] [ref=f7e31]
+        - paragraph [ref=f7e32]: Explore mechanics, energy, and the laws of nature.
+        - generic [ref=f7e33]:
+          - generic [aria-hidden] [ref=f7e34]: layers
+          - text: 2 Units
+        - generic [ref=f7e35]:
+          - text: Open
+          - generic [aria-hidden] [ref=f7e36]: arrow_forward
+      - link [ref=f7e37] [cursor=pointer]:
+        - /url: http://localhost:8000/student/subjects/biology
+        - generic [aria-hidden] [ref=f7e39]: biotech
+        - heading "Biology" [level=2] [ref=f7e40]
+        - paragraph [ref=f7e41]: From cells to ecosystems — understand living systems.
+        - generic [ref=f7e42]:
+          - generic [aria-hidden] [ref=f7e43]: layers
+          - text: 2 Units
+        - generic [ref=f7e44]:
+          - text: Open
+          - generic [aria-hidden] [ref=f7e45]: arrow_forward
+      - link [ref=f7e46] [cursor=pointer]:
+        - /url: http://localhost:8000/student/subjects/history
+        - generic [aria-hidden] [ref=f7e48]: history_edu
+        - heading "History" [level=2] [ref=f7e49]
+        - paragraph [ref=f7e50]: Key events, civilizations, and turning points.
+        - generic [ref=f7e51]:
+          - generic [aria-hidden] [ref=f7e52]: layers
+          - text: 2 Units
+        - generic [ref=f7e53]:
+          - text: Open
+          - generic [aria-hidden] [ref=f7e54]: arrow_forward
+      - link [ref=f7e55] [cursor=pointer]:
+        - /url: http://localhost:8000/student/subjects/english
+        - generic [aria-hidden] [ref=f7e57]: translate
+        - heading "English" [level=2] [ref=f7e58]
+        - paragraph [ref=f7e59]: Grammar, writing, and literature comprehension.
+        - generic [ref=f7e60]:
+          - generic [aria-hidden] [ref=f7e61]: layers
+          - text: 2 Units
+        - generic [ref=f7e62]:
+          - text: Open
+          - generic [aria-hidden] [ref=f7e63]: arrow_forward
+      - link [ref=f7e64] [cursor=pointer]:
+        - /url: http://localhost:8000/student/subjects/chemistry
+        - generic [aria-hidden] [ref=f7e66]: experiment
+        - heading "Chemistry" [level=2] [ref=f7e67]
+        - paragraph [ref=f7e68]: Elements, reactions, and molecular structures.
+        - generic [ref=f7e69]:
+          - generic [aria-hidden] [ref=f7e70]: layers
+          - text: 2 Units
+        - generic [ref=f7e71]:
+          - text: Open
+          - generic [aria-hidden] [ref=f7e72]: arrow_forward
+      - link [ref=f7e73] [cursor=pointer]:
+        - /url: http://localhost:8000/student/subjects/xpcount-6a999acc62437
+        - generic [aria-hidden] [ref=f7e75]: school
+        - heading "XPCount" [level=2] [ref=f7e76]
+        - generic [ref=f7e77]:
+          - generic [aria-hidden] [ref=f7e78]: layers
+          - text: 1 Units
+        - generic [ref=f7e79]:
+          - text: Open
+          - generic [aria-hidden] [ref=f7e80]: arrow_forward
+      - link [ref=f7e81] [cursor=pointer]:
+        - /url: http://localhost:8000/student/subjects/xpcount2-6a999b1cc83f0
+        - generic [aria-hidden] [ref=f7e83]: school
+        - heading "XPCount2" [level=2] [ref=f7e84]
+        - generic [ref=f7e85]:
+          - generic [aria-hidden] [ref=f7e86]: layers
+          - text: 1 Units
+        - generic [ref=f7e87]:
+          - text: Open
+          - generic [aria-hidden] [ref=f7e88]: arrow_forward
+  - navigation [ref=f7e89]:
+    - link "dashboard Dashboard" [ref=f7e90] [cursor=pointer]:
+      - /url: /student/dashboard
+      - generic [ref=f7e91]: dashboard
+      - generic [ref=f7e92]: Dashboard
+    - link "book Subjects" [ref=f7e93] [cursor=pointer]:
+      - /url: /student/subjects
+      - generic [ref=f7e94]: book
+      - generic [ref=f7e95]: Subjects
+    - link "psychology AI Tutor" [ref=f7e96] [cursor=pointer]:
+      - /url: /student/ai
+      - generic [ref=f7e97]: psychology
+      - generic [ref=f7e98]: AI Tutor
+    - link "more_horiz More" [ref=f7e99] [cursor=pointer]:
+      - /url: /student/progress
+      - generic [ref=f7e100]: more_horiz
+      - generic [ref=f7e101]: More

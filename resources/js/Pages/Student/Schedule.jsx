@@ -61,7 +61,7 @@ function EventCard({ event, onDelete, onToggle }) {
                 <div className="flex-1 min-w-0">
                     <h4 className="font-headline-md text-headline-md text-on-background truncate">{event.title}</h4>
                     <p className="font-body-md text-body-md text-on-surface-variant truncate">
-                        {[event.subject, meta.label, event.location].filter(Boolean).join(' • ')}
+                        {[event.subject?.name, meta.label, event.location].filter(Boolean).join(' • ')}
                     </p>
                 </div>
             </div>

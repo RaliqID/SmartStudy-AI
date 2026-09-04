@@ -1,0 +1,121 @@
+- generic [ref=f14e3]:
+  - banner [ref=f14e4]:
+    - generic [ref=f14e5]: SmartStudy AI
+    - generic [ref=f14e6]:
+      - link "Notifications" [ref=f14e7] [cursor=pointer]:
+        - /url: /student/notifications
+        - generic [ref=f14e8]: notifications
+      - link "Profile" [ref=f14e9] [cursor=pointer]:
+        - /url: /profile
+        - generic [ref=f14e10]: account_circle
+  - main [ref=f14e12]:
+    - generic [ref=f14e13]:
+      - generic [ref=f14e14]:
+        - heading "Study Schedule" [level=1] [ref=f14e15]
+        - paragraph [ref=f14e16]: Plan it. Do it. Streak it.
+      - button "Add Event" [ref=f14e17]:
+        - generic [aria-hidden] [ref=f14e18]: add
+        - text: Add Event
+    - generic [ref=f14e19]:
+      - generic [ref=f14e20]:
+        - generic [ref=f14e21]:
+          - heading "September 2026" [level=2] [ref=f14e22]
+          - generic [ref=f14e23]:
+            - button "Previous month" [ref=f14e24]:
+              - generic [aria-hidden] [ref=f14e25]: chevron_left
+            - button "Next month" [ref=f14e26]:
+              - generic [aria-hidden] [ref=f14e27]: chevron_right
+        - generic [ref=f14e28]:
+          - generic [ref=f14e29]: Sun
+          - generic [ref=f14e30]: Mon
+          - generic [ref=f14e31]: Tue
+          - generic [ref=f14e32]: Wed
+          - generic [ref=f14e33]: Thu
+          - generic [ref=f14e34]: Fri
+          - generic [ref=f14e35]: Sat
+        - generic [ref=f14e36]:
+          - button "1 September, 0 events" [ref=f14e39]:
+            - generic [ref=f14e40]: "1"
+          - button "2 September, 0 events" [ref=f14e41]:
+            - generic [ref=f14e42]: "2"
+          - button "3 September, 0 events" [ref=f14e43]:
+            - generic [ref=f14e44]: "3"
+          - button "4 September, 0 events" [pressed] [ref=f14e45]:
+            - generic [ref=f14e46]: "4"
+          - button "5 September, 0 events" [ref=f14e48]:
+            - generic [ref=f14e49]: "5"
+          - button "6 September, 0 events" [ref=f14e50]:
+            - generic [ref=f14e51]: "6"
+          - button "7 September, 0 events" [ref=f14e52]:
+            - generic [ref=f14e53]: "7"
+          - button "8 September, 0 events" [ref=f14e54]:
+            - generic [ref=f14e55]: "8"
+          - button "9 September, 0 events" [ref=f14e56]:
+            - generic [ref=f14e57]: "9"
+          - button "10 September, 0 events" [ref=f14e58]:
+            - generic [ref=f14e59]: "10"
+          - button "11 September, 0 events" [ref=f14e60]:
+            - generic [ref=f14e61]: "11"
+          - button "12 September, 0 events" [ref=f14e62]:
+            - generic [ref=f14e63]: "12"
+          - button "13 September, 0 events" [ref=f14e64]:
+            - generic [ref=f14e65]: "13"
+          - button "14 September, 0 events" [ref=f14e66]:
+            - generic [ref=f14e67]: "14"
+          - button "15 September, 0 events" [ref=f14e68]:
+            - generic [ref=f14e69]: "15"
+          - button "16 September, 0 events" [ref=f14e70]:
+            - generic [ref=f14e71]: "16"
+          - button "17 September, 0 events" [ref=f14e72]:
+            - generic [ref=f14e73]: "17"
+          - button "18 September, 0 events" [ref=f14e74]:
+            - generic [ref=f14e75]: "18"
+          - button "19 September, 0 events" [ref=f14e76]:
+            - generic [ref=f14e77]: "19"
+          - button "20 September, 0 events" [ref=f14e78]:
+            - generic [ref=f14e79]: "20"
+          - button "21 September, 0 events" [ref=f14e80]:
+            - generic [ref=f14e81]: "21"
+          - button "22 September, 0 events" [ref=f14e82]:
+            - generic [ref=f14e83]: "22"
+          - button "23 September, 0 events" [ref=f14e84]:
+            - generic [ref=f14e85]: "23"
+          - button "24 September, 0 events" [ref=f14e86]:
+            - generic [ref=f14e87]: "24"
+          - button "25 September, 0 events" [ref=f14e88]:
+            - generic [ref=f14e89]: "25"
+          - button "26 September, 0 events" [ref=f14e90]:
+            - generic [ref=f14e91]: "26"
+          - button "27 September, 0 events" [ref=f14e92]:
+            - generic [ref=f14e93]: "27"
+          - button "28 September, 0 events" [ref=f14e94]:
+            - generic [ref=f14e95]: "28"
+          - button "29 September, 0 events" [ref=f14e96]:
+            - generic [ref=f14e97]: "29"
+          - button "30 September, 0 events" [ref=f14e98]:
+            - generic [ref=f14e99]: "30"
+      - generic [ref=f14e100]:
+        - generic [ref=f14e101]:
+          - heading "Today" [level=3] [ref=f14e102]
+          - generic [ref=f14e103]: 0 events
+        - generic [ref=f14e104]:
+          - generic [aria-hidden] [ref=f14e105]: event_busy
+          - paragraph [ref=f14e106]: Nothing scheduled
+          - paragraph [ref=f14e107]: Add a study session to keep the streak alive.
+  - navigation [ref=f14e108]:
+    - link "dashboard Dashboard" [ref=f14e109] [cursor=pointer]:
+      - /url: /student/dashboard
+      - generic [ref=f14e110]: dashboard
+      - generic [ref=f14e111]: Dashboard
+    - link "book Subjects" [ref=f14e112] [cursor=pointer]:
+      - /url: /student/subjects
+      - generic [ref=f14e113]: book
+      - generic [ref=f14e114]: Subjects
+    - link "psychology AI Tutor" [ref=f14e115] [cursor=pointer]:
+      - /url: /student/ai
+      - generic [ref=f14e116]: psychology
+      - generic [ref=f14e117]: AI Tutor
+    - link "more_horiz More" [ref=f14e118] [cursor=pointer]:
+      - /url: /student/progress
+      - generic [ref=f14e119]: more_horiz
+      - generic [ref=f14e120]: More

@@ -1,0 +1,108 @@
+- generic [ref=f8e3]:
+  - banner [ref=f8e4]:
+    - generic [ref=f8e5]: SmartStudy AI
+    - generic [ref=f8e6]:
+      - link "Notifications" [ref=f8e7] [cursor=pointer]:
+        - /url: /student/notifications
+        - generic [ref=f8e8]: notifications
+      - link "Profile" [ref=f8e9] [cursor=pointer]:
+        - /url: /profile
+        - generic [ref=f8e10]: account_circle
+  - main [ref=f8e12]:
+    - generic [ref=f8e13]:
+      - heading "Quizzes" [level=1] [ref=f8e14]
+      - paragraph [ref=f8e15]: Ready to test your knowledge?
+    - generic [ref=f8e16]:
+      - heading "This Week" [level=2] [ref=f8e18]
+      - generic [ref=f8e19]:
+        - generic [ref=f8e20]:
+          - generic [aria-hidden] [ref=f8e22]: local_fire_department
+          - generic [ref=f8e23]: "0"
+          - generic [ref=f8e24]: Quizzes Taken
+        - generic [ref=f8e25]:
+          - generic [aria-hidden] [ref=f8e27]: star
+          - generic [ref=f8e28]: 0%
+          - generic [ref=f8e29]: Avg Score
+        - generic [ref=f8e30]:
+          - generic [aria-hidden] [ref=f8e32]: bolt
+          - generic [ref=f8e33]: "0"
+          - generic [ref=f8e34]: XP Earned
+    - tablist "Quiz filters" [ref=f8e35]:
+      - tab "Available" [selected] [ref=f8e36]:
+        - generic [aria-hidden] [ref=f8e37]: play_circle
+        - text: Available
+      - tab "Recommended" [ref=f8e38]:
+        - generic [aria-hidden] [ref=f8e39]: auto_awesome
+        - text: Recommended
+      - tab "Completed" [ref=f8e40]:
+        - generic [aria-hidden] [ref=f8e41]: task_alt
+        - text: Completed
+    - generic [ref=f8e42]:
+      - generic [ref=f8e43]:
+        - generic [ref=f8e44]:
+          - generic [aria-hidden] [ref=f8e46]: calculate
+          - generic [ref=f8e47]: easy
+        - heading "Algebra Basics" [level=3] [ref=f8e49]
+        - paragraph [ref=f8e50]: Mathematics
+        - generic [ref=f8e51]:
+          - generic [ref=f8e52]:
+            - generic [aria-hidden] [ref=f8e53]: format_list_bulleted
+            - text: 5 Qs
+          - generic [ref=f8e54]:
+            - generic [aria-hidden] [ref=f8e55]: timer
+            - text: 10 min
+          - generic [ref=f8e56]:
+            - generic [aria-hidden] [ref=f8e57]: bolt
+            - text: +50 XP
+        - button "Start Quiz" [ref=f8e58]
+      - generic [ref=f8e59]:
+        - generic [ref=f8e60]:
+          - generic [aria-hidden] [ref=f8e62]: calculate
+          - generic [ref=f8e63]: medium
+        - heading "Linear Equations" [level=3] [ref=f8e65]
+        - paragraph [ref=f8e66]: Mathematics
+        - generic [ref=f8e67]:
+          - generic [ref=f8e68]:
+            - generic [aria-hidden] [ref=f8e69]: format_list_bulleted
+            - text: 5 Qs
+          - generic [ref=f8e70]:
+            - generic [aria-hidden] [ref=f8e71]: timer
+            - text: 15 min
+          - generic [ref=f8e72]:
+            - generic [aria-hidden] [ref=f8e73]: bolt
+            - text: +75 XP
+        - button "Start Quiz" [ref=f8e74]
+      - generic [ref=f8e75]:
+        - generic [ref=f8e76]:
+          - generic [aria-hidden] [ref=f8e78]: calculate
+          - generic [ref=f8e79]: hard
+        - heading "Geometry Fundamentals" [level=3] [ref=f8e81]
+        - paragraph [ref=f8e82]: Mathematics
+        - generic [ref=f8e83]:
+          - generic [ref=f8e84]:
+            - generic [aria-hidden] [ref=f8e85]: format_list_bulleted
+            - text: 5 Qs
+          - generic [ref=f8e86]:
+            - generic [aria-hidden] [ref=f8e87]: timer
+            - text: 20 min
+          - generic [ref=f8e88]:
+            - generic [aria-hidden] [ref=f8e89]: bolt
+            - text: +100 XP
+        - button "Start Quiz" [ref=f8e90]
+  - navigation [ref=f8e91]:
+    - link "dashboard Dashboard" [ref=f8e92] [cursor=pointer]:
+      - /url: /student/dashboard
+      - generic [ref=f8e93]: dashboard
+      - generic [ref=f8e94]: Dashboard
+    - link "book Subjects" [ref=f8e95] [cursor=pointer]:
+      - /url: /student/subjects
+      - generic [ref=f8e96]: book
+      - generic [ref=f8e97]: Subjects
+    - link "psychology AI Tutor" [ref=f8e98] [cursor=pointer]:
+      - /url: /student/ai
+      - generic [ref=f8e99]: psychology
+      - generic [ref=f8e100]: AI Tutor
+    - link "more_horiz More" [ref=f8e101] [cursor=pointer]:
+      - /url: /student/progress
+      - generic [ref=f8e102]: more_horiz
+      - generic [ref=f8e103]: More

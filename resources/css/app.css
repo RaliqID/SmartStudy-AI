@@ -122,6 +122,22 @@
     --spacing-xl: 32px;
     --spacing-depth-sm: 2px;
     --spacing-depth-md: 4px;
+
+    /* Container scale — Tailwind v4 max-w-* resolves from this, NOT spacing.
+       Custom spacing scale above broke max-w-sm→12px; this restores standard sizes. */
+    --container-3xs: 16rem;   /* 256px */
+    --container-2xs: 18rem;   /* 288px */
+    --container-xs: 20rem;    /* 320px */
+    --container-sm: 24rem;    /* 384px */
+    --container-md: 28rem;    /* 448px */
+    --container-lg: 32rem;    /* 512px */
+    --container-xl: 36rem;    /* 576px */
+    --container-2xl: 42rem;   /* 672px */
+    --container-3xl: 48rem;   /* 768px */
+    --container-4xl: 56rem;   /* 896px */
+    --container-5xl: 64rem;  /* 1024px */
+    --container-6xl: 72rem;   /* 1152px */
+    --container-7xl: 80rem;   /* 1280px */
 }
 
 /*
@@ -158,6 +174,28 @@
         background-color: var(--color-primary-fixed);
         color: var(--color-on-primary-fixed);
     }
+}
+
+/*
+|--------------------------------------------------------------------------
+| max-w named utilities — restore container semantics
+| Tailwind 4.3 resolves max-w-sm from --spacing-sm (which we set to 12px),
+| collapsing every layout. Plain-CSS overrides (non-utility) beat the
+| generated utilities because they land after the utilities layer.
+|--------------------------------------------------------------------------
+*/
+
+@layer utilities {
+    .max-w-sm { max-width: 24rem; }
+    .max-w-md { max-width: 28rem; }
+    .max-w-lg { max-width: 32rem; }
+    .max-w-xl { max-width: 36rem; }
+    .max-w-2xl { max-width: 42rem; }
+    .max-w-3xl { max-width: 48rem; }
+    .max-w-4xl { max-width: 56rem; }
+    .max-w-5xl { max-width: 64rem; }
+    .max-w-6xl { max-width: 72rem; }
+    .max-w-7xl { max-width: 80rem; }
 }
 
 /*

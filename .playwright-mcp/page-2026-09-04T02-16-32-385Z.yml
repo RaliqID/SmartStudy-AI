@@ -1,0 +1,69 @@
+- generic [ref=f11e3]:
+  - banner [ref=f11e4]:
+    - generic [ref=f11e5]: SmartStudy AI
+    - generic [ref=f11e6]:
+      - link "Notifications" [ref=f11e7] [cursor=pointer]:
+        - /url: /student/notifications
+        - generic [ref=f11e8]: notifications
+      - link "Profile" [ref=f11e9] [cursor=pointer]:
+        - /url: /profile
+        - generic [ref=f11e10]: account_circle
+  - main [ref=f11e12]:
+    - generic [ref=f11e13]:
+      - generic [ref=f11e14]:
+        - heading "AI Tutor" [level=1] [ref=f11e15]:
+          - generic [aria-hidden] [ref=f11e16]: auto_awesome
+          - text: AI Tutor
+        - generic [ref=f11e17]:
+          - generic [ref=f11e18]:
+            - generic [ref=f11e19]: Subject context
+            - combobox "Subject context" [ref=f11e20] [cursor=pointer]:
+              - option "Biology" [selected]
+              - option "Chemistry"
+              - option "English"
+              - option "History"
+              - option "Mathematics"
+              - option "Physics"
+              - option "XPCount"
+              - option "XPCount2"
+            - generic [aria-hidden]: expand_more
+          - button "Open conversation history" [ref=f11e21]:
+            - generic [aria-hidden] [ref=f11e22]: history
+      - generic [ref=f11e24]:
+        - generic [ref=f11e26]:
+          - generic [aria-hidden] [ref=f11e28]: psychology
+          - heading "Hi! I'm your AI Tutor" [level=2] [ref=f11e29]
+          - paragraph [ref=f11e30]: Ask anything about your lessons — I'll break it down step by step.
+        - generic [ref=f11e31]:
+          - generic [ref=f11e32]:
+            - button "Explain Simpler" [ref=f11e33]:
+              - generic [aria-hidden] [ref=f11e34]: lightbulb
+              - text: Explain Simpler
+            - button "Give Example" [ref=f11e35]:
+              - generic [aria-hidden] [ref=f11e36]: extension
+              - text: Give Example
+            - button "Create Practice Quiz" [ref=f11e37]:
+              - generic [aria-hidden] [ref=f11e38]: edit_note
+              - text: Create Practice Quiz
+          - generic [ref=f11e39]:
+            - textbox "Message AI Tutor" [ref=f11e41]:
+              - /placeholder: Ask about this lesson...
+            - button [disabled] [ref=f11e42]:
+              - generic [aria-hidden] [ref=f11e43]: send
+  - navigation [ref=f11e44]:
+    - link "dashboard Dashboard" [ref=f11e45] [cursor=pointer]:
+      - /url: /student/dashboard
+      - generic [ref=f11e46]: dashboard
+      - generic [ref=f11e47]: Dashboard
+    - link "book Subjects" [ref=f11e48] [cursor=pointer]:
+      - /url: /student/subjects
+      - generic [ref=f11e49]: book
+      - generic [ref=f11e50]: Subjects
+    - link "psychology AI Tutor" [ref=f11e51] [cursor=pointer]:
+      - /url: /student/ai
+      - generic [ref=f11e52]: psychology
+      - generic [ref=f11e53]: AI Tutor
+    - link "more_horiz More" [ref=f11e54] [cursor=pointer]:
+      - /url: /student/progress
+      - generic [ref=f11e55]: more_horiz
+      - generic [ref=f11e56]: More

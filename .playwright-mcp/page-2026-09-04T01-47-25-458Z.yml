@@ -1,0 +1,37 @@
+- generic [ref=f6e3]:
+  - complementary [ref=f6e4]:
+    - generic [aria-hidden]: school
+    - generic [aria-hidden]: psychology
+    - generic [aria-hidden]: quiz
+    - generic [ref=f6e5]:
+      - generic [ref=f6e6]:
+        - generic [aria-hidden] [ref=f6e8]: school
+        - generic [ref=f6e9]:
+          - paragraph [ref=f6e10]: Laravel
+          - paragraph [ref=f6e11]: Learn smarter, not harder
+      - generic [ref=f6e12]:
+        - paragraph [ref=f6e13]: Your AI-powered study companion — master any subject with bite-sized lessons, gamified quizzes, and a streak worth keeping.
+        - generic [ref=f6e14]:
+          - generic [aria-hidden] [ref=f6e15]: format_quote
+          - paragraph [ref=f6e16]: "\"Learning is a treasure that follows its owner everywhere.\""
+          - paragraph [ref=f6e17]: — Keep showing up daily
+  - main [ref=f6e18]:
+    - generic [ref=f6e21]:
+      - heading "Welcome back!" [level=2] [ref=f6e22]
+      - generic [ref=f6e23]:
+        - generic [ref=f6e24]: Email
+        - textbox "Email" [active] [ref=f6e25]
+      - generic [ref=f6e26]:
+        - generic [ref=f6e27]: Password
+        - textbox "Password" [ref=f6e28]
+      - generic [ref=f6e29]:
+        - generic [ref=f6e30]:
+          - checkbox "Remember me" [ref=f6e31]
+          - generic [ref=f6e32]: Remember me
+        - link "Forgot password?" [ref=f6e33] [cursor=pointer]:
+          - /url: http://localhost:8000/forgot-password
+      - button "Log in" [ref=f6e34] [cursor=pointer]
+      - paragraph [ref=f6e35]:
+        - text: Don't have an account?
+        - link "Register" [ref=f6e36] [cursor=pointer]:
+          - /url: http://localhost:8000/register

@@ -1,0 +1,45 @@
+- generic [ref=f18e3]:
+  - banner [ref=f18e4]:
+    - generic [ref=f18e5]: SmartStudy AI
+    - generic [ref=f18e6]:
+      - link "Notifications" [ref=f18e7] [cursor=pointer]:
+        - /url: /student/notifications
+        - generic [ref=f18e8]: notifications
+      - link "Profile" [ref=f18e9] [cursor=pointer]:
+        - /url: /profile
+        - generic [ref=f18e10]: account_circle
+  - main [ref=f18e12]:
+    - generic [ref=f18e13]:
+      - heading "Leaderboard" [level=1] [ref=f18e14]
+      - paragraph [ref=f18e15]: Climb higher, earn more XP!
+    - tablist "Leaderboard period" [ref=f18e16]:
+      - tab "Weekly" [selected] [ref=f18e17]:
+        - generic [aria-hidden] [ref=f18e18]: date_range
+        - text: Weekly
+      - tab "Monthly" [ref=f18e19]:
+        - generic [aria-hidden] [ref=f18e20]: calendar_month
+        - text: Monthly
+      - tab "All-Time" [ref=f18e21]:
+        - generic [aria-hidden] [ref=f18e22]: emoji_events
+        - text: All-Time
+    - generic [ref=f18e24]:
+      - generic [aria-hidden] [ref=f18e25]: leaderboard
+      - paragraph [ref=f18e26]: No rankings yet
+      - paragraph [ref=f18e27]: Complete quizzes to enter the leaderboard!
+  - navigation [ref=f18e28]:
+    - link "dashboard Dashboard" [ref=f18e29] [cursor=pointer]:
+      - /url: /student/dashboard
+      - generic [ref=f18e30]: dashboard
+      - generic [ref=f18e31]: Dashboard
+    - link "book Subjects" [ref=f18e32] [cursor=pointer]:
+      - /url: /student/subjects
+      - generic [ref=f18e33]: book
+      - generic [ref=f18e34]: Subjects
+    - link "psychology AI Tutor" [ref=f18e35] [cursor=pointer]:
+      - /url: /student/ai
+      - generic [ref=f18e36]: psychology
+      - generic [ref=f18e37]: AI Tutor
+    - link "more_horiz More" [ref=f18e38] [cursor=pointer]:
+      - /url: /student/progress
+      - generic [ref=f18e39]: more_horiz
+      - generic [ref=f18e40]: More

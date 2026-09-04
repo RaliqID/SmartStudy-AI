@@ -1,0 +1,47 @@
+- generic [ref=f17e3]:
+  - banner [ref=f17e4]:
+    - generic [ref=f17e5]: SmartStudy AI
+    - generic [ref=f17e6]:
+      - link "Notifications" [ref=f17e7] [cursor=pointer]:
+        - /url: /student/notifications
+        - generic [ref=f17e8]: notifications
+      - link "Profile" [ref=f17e9] [cursor=pointer]:
+        - /url: /profile
+        - generic [ref=f17e10]: account_circle
+  - main [ref=f17e12]:
+    - generic [ref=f17e13]:
+      - generic [ref=f17e14]:
+        - heading "Notifications" [level=1] [ref=f17e15]
+        - paragraph [ref=f17e16]: 1 unread notification
+      - button "Mark All Read" [ref=f17e17]:
+        - generic [aria-hidden] [ref=f17e18]: done_all
+        - text: Mark All Read
+    - generic [ref=f17e20]:
+      - 'link "Streak Freeze Used! Unread Kamu absen kemarin, tapi streak 1 hari kamu selamat berkat Streak Freeze. Sisa freeze bulan ini: 1. 1h ago" [ref=f17e21] [cursor=pointer]':
+        - /url: /student/progress
+        - generic [aria-hidden] [ref=f17e23]: ac_unit
+        - generic [ref=f17e24]:
+          - generic [ref=f17e25]:
+            - paragraph [ref=f17e26]: Streak Freeze Used!
+            - generic "Unread" [ref=f17e27]
+          - paragraph [ref=f17e28]: "Kamu absen kemarin, tapi streak 1 hari kamu selamat berkat Streak Freeze. Sisa freeze bulan ini: 1."
+          - paragraph [ref=f17e29]: 1h ago
+      - button "Mark \"Streak Freeze Used!\" as read" [ref=f17e30]:
+        - generic [aria-hidden] [ref=f17e31]: done_all
+  - navigation [ref=f17e32]:
+    - link "dashboard Dashboard" [ref=f17e33] [cursor=pointer]:
+      - /url: /student/dashboard
+      - generic [ref=f17e34]: dashboard
+      - generic [ref=f17e35]: Dashboard
+    - link "book Subjects" [ref=f17e36] [cursor=pointer]:
+      - /url: /student/subjects
+      - generic [ref=f17e37]: book
+      - generic [ref=f17e38]: Subjects
+    - link "psychology AI Tutor" [ref=f17e39] [cursor=pointer]:
+      - /url: /student/ai
+      - generic [ref=f17e40]: psychology
+      - generic [ref=f17e41]: AI Tutor
+    - link "more_horiz More" [ref=f17e42] [cursor=pointer]:
+      - /url: /student/progress
+      - generic [ref=f17e43]: more_horiz
+      - generic [ref=f17e44]: More

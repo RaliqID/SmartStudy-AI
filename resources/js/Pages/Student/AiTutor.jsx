@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, usePage } from '@inertiajs/react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import AppLayout from '@/Layouts/AppLayout';
 
 /**
@@ -63,7 +65,9 @@ function MessageBubble({ message }) {
                     </span>
                 </div>
                 <div className="bg-surface-container-lowest rounded-2xl rounded-tl-sm p-md border-2 border-outline-variant border-b-4">
-                    <p className="font-body-md text-body-md text-on-surface whitespace-pre-wrap break-words">{message.content}</p>
+                    <div className="chat-markdown">
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{message.content}</ReactMarkdown>
+                    </div>
                 </div>
             </div>
             {time && <span className="font-label-bold text-label-bold text-on-surface-variant/60 text-[10px] uppercase px-12">{time}</span>}
@@ -357,10 +361,10 @@ export default function AiTutor({ auth, conversations = [], currentConversation 
                                     </div>
                                     <div className="bg-surface-container-lowest rounded-2xl rounded-tl-sm p-md border-2 border-outline-variant border-b-4">
                                         {streamText ? (
-                                            <p className="font-body-md text-body-md text-on-surface whitespace-pre-wrap break-words">
-                                                {streamText}
+                                            <div className="chat-markdown">
+                                                <ReactMarkdown remarkPlugins={[remarkGfm]}>{streamText}</ReactMarkdown>
                                                 <span className="inline-block w-2 h-4 bg-secondary align-text-bottom ml-0.5 animate-pulse" aria-hidden="true"></span>
-                                            </p>
+                                            </div>
                                         ) : (
                                             <TypingDots />
                                         )}

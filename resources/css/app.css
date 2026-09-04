@@ -159,3 +159,118 @@
         color: var(--color-on-primary-fixed);
     }
 }
+
+/*
+|--------------------------------------------------------------------------
+| Chat markdown — styled markdown inside AI Tutor bubbles
+|--------------------------------------------------------------------------
+*/
+
+.chat-markdown {
+    font-size: var(--text-body-md);
+    line-height: 22px;
+    color: var(--color-on-surface);
+    word-break: break-word;
+}
+
+.chat-markdown > *:first-child { margin-top: 0; }
+.chat-markdown > *:last-child { margin-bottom: 0; }
+
+.chat-markdown p {
+    margin-block: 6px;
+}
+
+.chat-markdown h1,
+.chat-markdown h2,
+.chat-markdown h3,
+.chat-markdown h4 {
+    font-family: var(--font-headline-md);
+    font-size: var(--text-headline-md);
+    line-height: 26px;
+    font-weight: 700;
+    margin-block: 12px 4px;
+    color: var(--color-on-surface);
+}
+
+.chat-markdown h1 { font-size: 22px; }
+.chat-markdown h2 { font-size: 20px; }
+.chat-markdown h3 { font-size: 18px; }
+.chat-markdown h4 { font-size: 16px; }
+
+.chat-markdown ul,
+.chat-markdown ol {
+    margin-block: 6px;
+    padding-inline-start: 20px;
+}
+
+.chat-markdown ul { list-style-type: disc; }
+.chat-markdown ol { list-style-type: decimal; }
+
+.chat-markdown li { margin-block: 2px; }
+
+.chat-markdown li > ul,
+.chat-markdown li > ol { margin-block: 2px; }
+
+.chat-markdown table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-block: 8px;
+    font-size: 13px;
+}
+
+.chat-markdown th,
+.chat-markdown td {
+    border: 2px solid var(--color-surface-container-highest);
+    padding: 4px 8px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.chat-markdown th {
+    background-color: var(--color-surface-container);
+    font-weight: 800;
+}
+
+.chat-markdown code {
+    background-color: var(--color-surface-container);
+    border-radius: 6px;
+    padding: 1px 5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px;
+}
+
+.chat-markdown pre {
+    background-color: var(--color-inverse-surface);
+    color: var(--color-inverse-on-surface);
+    border-radius: 12px;
+    padding: 12px;
+    margin-block: 8px;
+    overflow-x: auto;
+}
+
+.chat-markdown pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+}
+
+.chat-markdown blockquote {
+    border-inline-start: 4px solid var(--color-primary-container);
+    padding-inline-start: 12px;
+    font-style: italic;
+    margin-block: 8px;
+    color: var(--color-on-surface-variant);
+}
+
+.chat-markdown strong { font-weight: 700; }
+
+.chat-markdown a {
+    color: var(--color-secondary);
+    text-decoration: underline;
+}
+
+.chat-markdown hr {
+    border: 0;
+    border-top: 2px solid var(--color-outline-variant);
+    margin-block: 12px;
+}

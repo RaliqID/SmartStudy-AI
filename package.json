@@ -22,5 +22,9 @@
     },
     "optionalDependencies": {
         "@laravel/multiplex": "^0.4.1"
+    },
+    "dependencies": {
+        "react-markdown": "^10.1.0",
+        "remark-gfm": "^4.0.1"
     }
 }

@@ -32,3 +32,4 @@ database/*.sqlite-journal
 
 .vercel
 .env*
+.env.backup

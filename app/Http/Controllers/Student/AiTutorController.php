@@ -161,15 +161,15 @@ class AiTutorController extends Controller
 
                 // Emit conversation id first — frontend tracks new conversations
                 echo "data: " . json_encode(['conversation_id' => $conversation->id]) . "\n\n";
-                ob_flush();
-                flush();
+                if (ob_get_level() > 0) { @ob_flush(); }
+                @flush();
 
                 // Stream chunks
                 foreach ($service->chatStream($aiMessages, null) as $chunk) {
                     $fullResponse .= $chunk;
                     echo "data: " . json_encode(['chunk' => $chunk]) . "\n\n";
-                    ob_flush();
-                    flush();
+                    if (ob_get_level() > 0) { @ob_flush(); }
+                @flush();
                 }
 
                 // After stream ends — generate related topics (opsional 3)
@@ -202,8 +202,8 @@ class AiTutorController extends Controller
                     'done' => true,
                     'related_topics' => $relatedTopics,
                 ]) . "\n\n";
-                ob_flush();
-                flush();
+                if (ob_get_level() > 0) { @ob_flush(); }
+                @flush();
 
             } catch (\Exception $e) {
                 Log::error('AI Tutor stream error', [
@@ -214,8 +214,8 @@ class AiTutorController extends Controller
 
                 // Send error chunk
                 echo "data: " . json_encode(['error' => 'AI Tutor temporarily unavailable. Please try again.']) . "\n\n";
-                ob_flush();
-                flush();
+                if (ob_get_level() > 0) { @ob_flush(); }
+                @flush();
             }
         }, 200, [
             'Content-Type' => 'text/event-stream',

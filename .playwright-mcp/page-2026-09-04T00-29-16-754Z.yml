@@ -1,0 +1,114 @@
+- generic [ref=e38]:
+  - navigation [ref=e39]:
+    - generic [ref=e40]:
+      - generic [ref=e41]: SmartStudy AI
+      - generic [ref=e42]:
+        - img "Student" [ref=e43]
+        - generic [ref=e44]: Level 1 Scholar
+    - generic [ref=e45]:
+      - link "dashboard Dashboard" [ref=e46] [cursor=pointer]:
+        - /url: /student/dashboard
+        - generic [ref=e47]: dashboard
+        - generic [ref=e48]: Dashboard
+      - link "book Subjects" [ref=e49] [cursor=pointer]:
+        - /url: /student/subjects
+        - generic [ref=e50]: book
+        - generic [ref=e51]: Subjects
+      - link "psychology AI Tutor" [ref=e52] [cursor=pointer]:
+        - /url: /student/ai
+        - generic [ref=e53]: psychology
+        - generic [ref=e54]: AI Tutor
+      - link "quiz Quiz" [ref=e55] [cursor=pointer]:
+        - /url: /student/quiz
+        - generic [ref=e56]: quiz
+        - generic [ref=e57]: Quiz
+      - link "trending_up Progress" [ref=e58] [cursor=pointer]:
+        - /url: /student/progress
+        - generic [ref=e59]: trending_up
+        - generic [ref=e60]: Progress
+      - link "calendar_today Schedule" [ref=e61] [cursor=pointer]:
+        - /url: /student/schedule
+        - generic [ref=e62]: calendar_today
+        - generic [ref=e63]: Schedule
+    - generic [ref=e64]:
+      - link "settings Settings" [ref=e65] [cursor=pointer]:
+        - /url: /student/settings
+        - generic [ref=e66]: settings
+        - generic [ref=e67]: Settings
+      - button "logout Logout" [ref=e69]:
+        - generic [ref=e70]: logout
+        - generic [ref=e71]: Logout
+  - main [ref=e72]:
+    - generic [ref=e73]:
+      - heading "Subjects" [level=1] [ref=e74]
+      - paragraph [ref=e75]: Explore your learning materials.
+    - generic [ref=e76]:
+      - generic [aria-hidden]: search
+      - searchbox "Search subjects" [ref=e77]
+    - generic [ref=e78]:
+      - link [ref=e79] [cursor=pointer]:
+        - /url: https://smartstudy-ai-orpin.vercel.app/student/subjects/mathematics
+        - generic [aria-hidden] [ref=e81]: calculate
+        - heading "Mathematics" [level=2] [ref=e82]
+        - paragraph [ref=e83]: Master algebra, geometry, and calculus step by step.
+        - generic [ref=e84]:
+          - generic [aria-hidden] [ref=e85]: layers
+          - text: 4 Units
+        - generic [ref=e86]:
+          - text: Open
+          - generic [aria-hidden] [ref=e87]: arrow_forward
+      - link [ref=e88] [cursor=pointer]:
+        - /url: https://smartstudy-ai-orpin.vercel.app/student/subjects/physics
+        - generic [aria-hidden] [ref=e90]: science
+        - heading "Physics" [level=2] [ref=e91]
+        - paragraph [ref=e92]: Explore mechanics, energy, and the laws of nature.
+        - generic [ref=e93]:
+          - generic [aria-hidden] [ref=e94]: layers
+          - text: 2 Units
+        - generic [ref=e95]:
+          - text: Open
+          - generic [aria-hidden] [ref=e96]: arrow_forward
+      - link [ref=e97] [cursor=pointer]:
+        - /url: https://smartstudy-ai-orpin.vercel.app/student/subjects/biology
+        - generic [aria-hidden] [ref=e99]: biotech
+        - heading "Biology" [level=2] [ref=e100]
+        - paragraph [ref=e101]: From cells to ecosystems — understand living systems.
+        - generic [ref=e102]:
+          - generic [aria-hidden] [ref=e103]: layers
+          - text: 2 Units
+        - generic [ref=e104]:
+          - text: Open
+          - generic [aria-hidden] [ref=e105]: arrow_forward
+      - link [ref=e106] [cursor=pointer]:
+        - /url: https://smartstudy-ai-orpin.vercel.app/student/subjects/history
+        - generic [aria-hidden] [ref=e108]: history_edu
+        - heading "History" [level=2] [ref=e109]
+        - paragraph [ref=e110]: Key events, civilizations, and turning points.
+        - generic [ref=e111]:
+          - generic [aria-hidden] [ref=e112]: layers
+          - text: 2 Units
+        - generic [ref=e113]:
+          - text: Open
+          - generic [aria-hidden] [ref=e114]: arrow_forward
+      - link [ref=e115] [cursor=pointer]:
+        - /url: https://smartstudy-ai-orpin.vercel.app/student/subjects/english
+        - generic [aria-hidden] [ref=e117]: translate
+        - heading "English" [level=2] [ref=e118]
+        - paragraph [ref=e119]: Grammar, writing, and literature comprehension.
+        - generic [ref=e120]:
+          - generic [aria-hidden] [ref=e121]: layers
+          - text: 2 Units
+        - generic [ref=e122]:
+          - text: Open
+          - generic [aria-hidden] [ref=e123]: arrow_forward
+      - link [ref=e124] [cursor=pointer]:
+        - /url: https://smartstudy-ai-orpin.vercel.app/student/subjects/chemistry
+        - generic [aria-hidden] [ref=e126]: experiment
+        - heading "Chemistry" [level=2] [ref=e127]
+        - paragraph [ref=e128]: Elements, reactions, and molecular structures.
+        - generic [ref=e129]:
+          - generic [aria-hidden] [ref=e130]: layers
+          - text: 2 Units
+        - generic [ref=e131]:
+          - text: Open
+          - generic [aria-hidden] [ref=e132]: arrow_forward

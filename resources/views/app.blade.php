@@ -6,6 +6,8 @@
 
         <title inertia>{{ config('app.name', 'SmartStudy AI') }}</title>
 
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
         <!-- Fonts: Plus Jakarta Sans (design system) + Material Symbols icons -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

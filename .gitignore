@@ -30,3 +30,5 @@ Thumbs.db
 database/*.sqlite
 database/*.sqlite-journal
 
+.vercel
+.env*

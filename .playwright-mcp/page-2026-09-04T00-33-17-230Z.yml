@@ -1,0 +1,107 @@
+- generic [ref=f1e4]:
+  - navigation [ref=f1e5]:
+    - generic [ref=f1e6]:
+      - generic [ref=f1e7]: SmartStudy AI
+      - generic [ref=f1e8]:
+        - img "Student" [ref=f1e9]
+        - generic [ref=f1e10]: Level 1 Scholar
+    - generic [ref=f1e11]:
+      - link "dashboard Dashboard" [ref=f1e12] [cursor=pointer]:
+        - /url: /student/dashboard
+        - generic [ref=f1e13]: dashboard
+        - generic [ref=f1e14]: Dashboard
+      - link "book Subjects" [ref=f1e15] [cursor=pointer]:
+        - /url: /student/subjects
+        - generic [ref=f1e16]: book
+        - generic [ref=f1e17]: Subjects
+      - link "psychology AI Tutor" [ref=f1e18] [cursor=pointer]:
+        - /url: /student/ai
+        - generic [ref=f1e19]: psychology
+        - generic [ref=f1e20]: AI Tutor
+      - link "quiz Quiz" [ref=f1e21] [cursor=pointer]:
+        - /url: /student/quiz
+        - generic [ref=f1e22]: quiz
+        - generic [ref=f1e23]: Quiz
+      - link "trending_up Progress" [ref=f1e24] [cursor=pointer]:
+        - /url: /student/progress
+        - generic [ref=f1e25]: trending_up
+        - generic [ref=f1e26]: Progress
+      - link "calendar_today Schedule" [ref=f1e27] [cursor=pointer]:
+        - /url: /student/schedule
+        - generic [ref=f1e28]: calendar_today
+        - generic [ref=f1e29]: Schedule
+    - generic [ref=f1e30]:
+      - link "settings Settings" [ref=f1e31] [cursor=pointer]:
+        - /url: /student/settings
+        - generic [ref=f1e32]: settings
+        - generic [ref=f1e33]: Settings
+      - button "logout Logout" [ref=f1e35]:
+        - generic [ref=f1e36]: logout
+        - generic [ref=f1e37]: Logout
+  - main [ref=f1e38]:
+    - generic [ref=f1e39]:
+      - generic [ref=f1e40]:
+        - heading "AI Tutor" [level=1] [ref=f1e41]:
+          - generic [aria-hidden] [ref=f1e42]: auto_awesome
+          - text: AI Tutor
+        - generic [ref=f1e44]:
+          - generic [ref=f1e45]: Subject context
+          - combobox "Subject context" [ref=f1e46] [cursor=pointer]:
+            - option "Biology" [selected]
+            - option "Chemistry"
+            - option "English"
+            - option "History"
+            - option "Mathematics"
+            - option "Physics"
+          - generic [aria-hidden]: expand_more
+      - generic [ref=f1e47]:
+        - generic [ref=f1e48]:
+          - generic [ref=f1e96]:
+            - paragraph [ref=f1e98]: What is algebra?
+            - generic [ref=f1e99]: 07:32 AM
+          - generic [ref=f1e55]:
+            - generic [ref=f1e56]:
+              - button "Explain Simpler" [ref=f1e57]:
+                - generic [aria-hidden] [ref=f1e58]: lightbulb
+                - text: Explain Simpler
+              - button "Give Example" [ref=f1e59]:
+                - generic [aria-hidden] [ref=f1e60]: extension
+                - text: Give Example
+              - button "Create Practice Quiz" [ref=f1e61]:
+                - generic [aria-hidden] [ref=f1e62]: edit_note
+                - text: Create Practice Quiz
+            - generic [ref=f1e63]:
+              - textbox "Message AI Tutor" [ref=f1e65]:
+                - /placeholder: Ask about this lesson...
+              - button "Send" [disabled] [ref=f1e66]:
+                - generic [aria-hidden] [ref=f1e67]: send
+        - complementary [ref=f1e69]:
+          - generic [ref=f1e70]:
+            - generic [ref=f1e71]:
+              - heading "History" [level=2] [ref=f1e72]:
+                - generic [aria-hidden] [ref=f1e73]: history
+                - text: History
+              - link "Start new conversation" [ref=f1e74] [cursor=pointer]:
+                - /url: /student/ai
+                - generic [aria-hidden] [ref=f1e75]: add_circle
+                - text: New
+            - paragraph [ref=f1e77]: No conversations yet. Say hi below!
+          - generic [ref=f1e78]:
+            - heading "Related Topics" [level=2] [ref=f1e79]:
+              - generic [aria-hidden] [ref=f1e80]: explore
+              - text: Related Topics
+            - generic [ref=f1e81]:
+              - link [ref=f1e82] [cursor=pointer]:
+                - /url: /student/subjects?topic=1
+                - generic [aria-hidden] [ref=f1e84]: calculate
+                - generic [ref=f1e85]:
+                  - heading "Inequalities" [level=4] [ref=f1e86]
+                  - paragraph [ref=f1e87]: Next Lesson
+                - generic [aria-hidden] [ref=f1e88]: chevron_right
+              - link [ref=f1e89] [cursor=pointer]:
+                - /url: /student/subjects?topic=2
+                - generic [aria-hidden] [ref=f1e91]: functions
+                - generic [ref=f1e92]:
+                  - heading "Algebra Basics" [level=4] [ref=f1e93]
+                  - paragraph [ref=f1e94]: Review
+                - generic [aria-hidden] [ref=f1e95]: chevron_right

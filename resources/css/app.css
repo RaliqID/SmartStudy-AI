@@ -138,6 +138,16 @@
     --container-5xl: 64rem;  /* 1024px */
     --container-6xl: 72rem;   /* 1152px */
     --container-7xl: 80rem;   /* 1280px */
+
+    /* Elevation — refined multi-layer shadows (landing + premium surfaces) */
+    --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px -8px rgba(15, 23, 42, 0.08);
+    --shadow-card-hover: 0 2px 4px rgba(15, 23, 42, 0.05), 0 16px 40px -12px rgba(15, 23, 42, 0.16);
+    --shadow-float: 0 12px 32px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+    --shadow-btn-primary: 0 4px 14px rgba(43, 108, 0, 0.35);
+    --shadow-btn-secondary: 0 4px 14px rgba(0, 101, 144, 0.30);
+
+    /* Motion — premium easing */
+    --ease-out-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /*
@@ -164,6 +174,7 @@
 @layer base {
     html {
         @apply antialiased;
+        scroll-behavior: smooth;
     }
 
     body {
@@ -174,6 +185,99 @@
         background-color: var(--color-primary-fixed);
         color: var(--color-on-primary-fixed);
     }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Landing — refined glass surfaces & smooth interactions
+|--------------------------------------------------------------------------
+*/
+
+@utility landing-card {
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 1.25rem;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.3s var(--ease-out-smooth), box-shadow 0.3s var(--ease-out-smooth), border-color 0.3s var(--ease-out-smooth);
+}
+
+@utility landing-card-hover {
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-card-hover);
+        border-color: rgba(88, 204, 2, 0.4);
+    }
+}
+
+@utility landing-btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    border-radius: 9999px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    box-shadow: var(--shadow-btn-primary);
+    transition: transform 0.2s var(--ease-out-smooth), box-shadow 0.2s var(--ease-out-smooth), filter 0.2s var(--ease-out-smooth);
+
+    &:hover {
+        filter: brightness(1.08);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(43, 108, 0, 0.42);
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 8px rgba(43, 108, 0, 0.30);
+    }
+}
+
+@utility landing-btn-secondary {
+    background-color: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+    border-radius: 9999px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    box-shadow: var(--shadow-btn-secondary);
+    transition: transform 0.2s var(--ease-out-smooth), box-shadow 0.2s var(--ease-out-smooth), filter 0.2s var(--ease-out-smooth);
+
+    &:hover {
+        filter: brightness(1.05);
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+@utility landing-nav {
+    background-color: color-mix(in srgb, var(--color-background) 85%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(190, 203, 177, 0.35);
+}
+
+@utility section-pad {
+    padding-block: clamp(56px, 8vw, 96px);
+}
+
+@utility hero-pad {
+    padding-block: clamp(48px, 6vw, 80px);
 }
 
 /*

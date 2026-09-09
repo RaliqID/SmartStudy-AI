@@ -2,7 +2,14 @@
 
 Platform e-learning berbasis AI — siswa belajar materi per subject, ngobrol sama AI Tutor streaming, ngerjain quiz auto-graded, dan dapat XP/achievement/streak dengan gamifikasi event-driven. Teacher kelola materi & quiz per kelas. Admin kelola user & sistem dengan invite flow.
 
-**Tech Stack:** Laravel 12 · Inertia.js 2 · React 18 · TailwindCSS 4 · PostgreSQL (prod) / SQLite (dev) · spatie/laravel-permission · Pest
+**Tech Stack:** Laravel 12 · Inertia.js 2 · React 18 · TailwindCSS 4 · PostgreSQL (prod) / SQLite (dev) · spatie/laravel-permission · Three.js/R3F · Pest
+
+## Landing Page
+
+- Guest landing profesional dengan design system Lumina Learning (Tactile Playfulness) + glass refinement — redesigned dari spec Stitch, data real dari database (subjects, materials, quizzes, achievements)
+- Hero 3D: model graduation cap (Blender → GLB, 11k tris, PBR) di-render React Three Fiber — orbit nodes, pointer tilt, lazy-loaded, `prefers-reduced-motion` aware. Source `.blend`: `assets/models/smartstudy-cap.blend`
+- Text animation: word-stagger hero reveal, scroll-reveal sections (IntersectionObserver), count-up metrics — semua reduced-motion safe
+- Sections: hero + 3D + daily quest mock, metrics real, subjects grid, how-it-works, AI tutor demo, achievements real (XP dari DB), CTA, footer
 
 ## Fitur
 

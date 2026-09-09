@@ -1,4 +1,4 @@
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 
 /**
  * GuestLayout — split-screen auth shell.
@@ -42,7 +42,7 @@ export default function GuestLayout({ children }) {
 
                 {/* Desktop branding */}
                 <div className="hidden lg:flex flex-col flex-1 p-12">
-                    <div className="flex items-center gap-4">
+                    <Link href="/" className="flex items-center gap-4">
                         <div className="w-14 h-14 rounded-2xl bg-white/15 border-2 border-white/25 flex items-center justify-center shrink-0">
                             <span className="material-symbols-outlined" style={{ fontSize: '32px', fontVariationSettings: "'FILL' 1" }} aria-hidden="true">school</span>
                         </div>
@@ -50,16 +50,16 @@ export default function GuestLayout({ children }) {
                             <p className="text-white font-extrabold" style={{ fontSize: '32px', lineHeight: '40px', letterSpacing: '-0.02em' }}>{name}</p>
                             <p className="text-white/60 uppercase" style={{ fontSize: '14px', fontWeight: 800, letterSpacing: '0.05em' }}>Learn smarter, not harder</p>
                         </div>
-                    </div>
+                    </Link>
 
                     <div className="flex-1 flex flex-col justify-end gap-8 pb-12">
                         <p className="text-white/80" style={{ fontSize: '17px', lineHeight: '26px', fontWeight: 600 }}>
-                            Your AI-powered study companion — master any subject with bite-sized lessons, gamified quizzes, and a streak worth keeping.
+                            Your AI-powered study companion: master any subject with bite-sized lessons, gamified quizzes, and a streak worth keeping.
                         </p>
                         <div className="bg-white/10 border-2 border-white/20 rounded-2xl p-6">
                             <span className="material-symbols-outlined text-yellow-300" aria-hidden="true">format_quote</span>
                             <p className="text-white font-bold mt-2" style={{ fontSize: '17px', lineHeight: '24px' }}>"Learning is a treasure that follows its owner everywhere."</p>
-                            <p className="text-white/50 uppercase mt-3" style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.1em' }}>— Keep showing up daily</p>
+                            <p className="text-white/50 uppercase mt-3" style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.1em' }}>Keep showing up daily</p>
                         </div>
                     </div>
                 </div>
@@ -67,10 +67,12 @@ export default function GuestLayout({ children }) {
 
             {/* Mobile brand strip */}
             <div className="lg:hidden flex items-center gap-3 p-4 bg-primary text-white">
-                <div className="w-8 h-8 rounded-lg bg-white/15 border border-white/25 flex items-center justify-center shrink-0">
-                    <span className="material-symbols-outlined" style={{ fontSize: '18px', fontVariationSettings: "'FILL' 1" }} aria-hidden="true">school</span>
-                </div>
-                <span className="font-bold text-sm tracking-tight">{name}</span>
+                <Link href="/" className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-white/15 border border-white/25 flex items-center justify-center shrink-0">
+                        <span className="material-symbols-outlined" style={{ fontSize: '18px', fontVariationSettings: "'FILL' 1" }} aria-hidden="true">school</span>
+                    </div>
+                    <span className="font-bold text-sm tracking-tight">{name}</span>
+                </Link>
             </div>
 
             {/* ── Form Panel ── */}

@@ -38,19 +38,19 @@ function ChunkyBar({ pct, color, className = 'h-4' }) {
 
 function ScoreRing({ pct }) {
     return (
-        <div className="relative w-20 h-20 shrink-0">
+        <div className="relative w-16 h-16 shrink-0">
             <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36" aria-hidden="true">
                 <path className="text-surface-container-high" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="4"></path>
                 <path className="text-secondary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeDasharray={`${pct}, 100`} strokeLinecap="round" strokeWidth="4"></path>
             </svg>
-            <div className="absolute inset-0 flex items-center justify-center font-headline-md text-headline-md font-black text-on-surface">{pct}%</div>
+            <div className="absolute inset-0 flex items-center justify-center font-label-bold text-label-bold font-black text-on-surface tabular-nums">{pct}%</div>
         </div>
     );
 }
 
 function MetricCard({ icon, iconClasses, label, value, sublabel }) {
     return (
-        <div className="bg-surface-container-lowest rounded-2xl chunky-border p-lg flex flex-col">
+        <div className="h-full bg-surface-container-lowest rounded-2xl chunky-border p-lg flex flex-col">
             <div className="flex items-center gap-sm mb-md">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center ${iconClasses}`}>
                     <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">
@@ -82,47 +82,57 @@ export default function Progress({ auth, overall = 0, avgScore = 0, streak = {},
                 <p className="font-body-lg text-body-lg text-on-surface-variant">Every study session counts. Keep rolling!</p>
             </header>
 
-            {/* Top Metrics Grid — 2 cols mobile, 4 cols desktop */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-sm sm:gap-lg mb-xl">
-                <div className="col-span-2 lg:col-span-1 bg-surface-container-lowest rounded-2xl chunky-border p-lg flex items-center justify-between gap-md">
-                    <div className="flex flex-col">
-                        <div className="flex items-center gap-sm mb-md">
-                            <div className="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
-                                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">star</span>
-                            </div>
-                            <h3 className="font-headline-md text-headline-md text-on-surface">Overall</h3>
+            {/* Top Metrics Grid — 2 cols mobile, 6-col on desktop (Overall spans 2) */}
+            <div className="grid grid-cols-2 lg:grid-cols-6 gap-sm sm:gap-lg mb-xl">
+                <div className="col-span-2 bg-surface-container-lowest rounded-2xl chunky-border p-lg flex flex-col">
+                    <div className="flex items-center gap-sm mb-md">
+                        <div className="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+                            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">star</span>
                         </div>
-                        <span className="font-display text-display text-secondary">{overall}%</span>
+                        <h3 className="font-headline-md text-headline-md text-on-surface">Overall</h3>
                     </div>
-                    <ScoreRing pct={Math.round(overall)} />
+                    <div className="mt-auto flex items-center justify-between gap-md">
+                        <span className="font-display text-display text-secondary tabular-nums">{overall}%</span>
+                        <ScoreRing pct={Math.round(overall)} />
+                    </div>
                 </div>
 
-                <MetricCard
-                    icon="emoji_events"
-                    iconClasses="bg-tertiary-fixed text-on-tertiary-fixed"
-                    label="Avg Score"
-                    value={{ text: avgScore, classes: 'text-tertiary-container' }}
-                />
-                <MetricCard
-                    icon="menu_book"
-                    iconClasses="bg-primary-fixed text-on-primary-fixed"
-                    label="Materials"
-                    value={{ text: totalMaterials, classes: 'text-primary' }}
-                    sublabel="Completed"
-                />                <MetricCard
-                    icon="local_fire_department"
-                    iconClasses="bg-error-container text-on-error-container"
-                    label="Streak"
-                    value={{ text: `${streak.current || 0} Days`, classes: 'text-error' }}
-                    sublabel={`Longest: ${streak.longest || 0} days`}
-                />
+                <div className="lg:col-span-1">
+                    <MetricCard
+                        icon="emoji_events"
+                        iconClasses="bg-tertiary-fixed text-on-tertiary-fixed"
+                        label="Avg Score"
+                        value={{ text: `${avgScore}%`, classes: 'text-tertiary-container' }}
+                    />
+                </div>
+                <div className="lg:col-span-1">
+                    <MetricCard
+                        icon="menu_book"
+                        iconClasses="bg-primary-fixed text-on-primary-fixed"
+                        label="Materials"
+                        value={{ text: totalMaterials, classes: 'text-primary' }}
+                        sublabel="Completed"
+                    />
+                </div>
+                <div className="lg:col-span-1">
+                    <MetricCard
+                        icon="local_fire_department"
+                        iconClasses="bg-error-container text-on-error-container"
+                        label="Streak"
+                        value={{ text: `${streak.current || 0} Days`, classes: 'text-error' }}
+                        sublabel={`Longest: ${streak.longest || 0} days`}
+                    />
+                </div>
+                <div className="lg:col-span-1">
                 <MetricCard
                     icon="ac_unit"
                     iconClasses="bg-secondary-container text-on-secondary-container"
                     label="Streak Freezes"
-                    value={{ text: `${freezesLeft}/${2}`, classes: 'text-secondary' }}
+                    value={{ text: `${freezesLeft}/2`, classes: 'text-secondary' }}
                     sublabel={freezesLeft > 0 ? 'Auto-protects your streak' : 'Refills next month'}
                 />
+            </div>
+
             </div>
 
             {/* Activity & Mastery */}

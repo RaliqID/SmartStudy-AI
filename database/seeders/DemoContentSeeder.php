@@ -32,7 +32,7 @@ class DemoContentSeeder extends Seeder
                 'name' => 'Biology',
                 'icon' => 'biotech',
                 'color' => '#755b00',
-                'description' => 'From cells to ecosystems — understand living systems.',
+                'description' => 'From cells to ecosystems, understand living systems.',
             ],
             [
                 'name' => 'History',
@@ -166,6 +166,6 @@ class DemoContentSeeder extends Seeder
 
     protected function sampleTextContent(string $unitTitle): string
     {
-        return "<h2>{$unitTitle}</h2><p>Welcome to this unit. Work through each lesson in order — watch the video, read the material, then test yourself with practice questions.</p><ul><li>Step 1: Watch the video lesson</li><li>Step 2: Read the notes</li><li>Step 3: Complete the practice set</li></ul>";
+        return "<h2>{$unitTitle}</h2><p>Welcome to this unit. Work through each lesson in order: watch the video, read the material, then test yourself with practice questions.</p><ul><li>Step 1: Watch the video lesson</li><li>Step 2: Read the notes</li><li>Step 3: Complete the practice set</li></ul>";
     }
 }

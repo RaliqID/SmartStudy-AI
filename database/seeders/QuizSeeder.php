@@ -6,6 +6,7 @@ use App\Models\Quiz;
 use App\Models\Question;
 use App\Models\QuestionOption;
 use App\Models\Subject;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class QuizSeeder extends Seeder
@@ -17,6 +18,13 @@ class QuizSeeder extends Seeder
             $this->command?->warn('Subject "mathematics" not found. Run DemoContentSeeder first.');
             return;
         }
+
+        // Attribute the seeded quizzes to the demo teacher so they appear in the
+        // teacher's own dashboard/lists (which scope by created_by). Fall back to
+        // the admin when no teacher exists yet.
+        $authorId = User::role('teacher')->value('id')
+            ?? User::role('admin')->value('id')
+            ?? User::value('id');
 
         $quizzes = [
             [
@@ -146,7 +154,7 @@ class QuizSeeder extends Seeder
                 ['title' => $data['title'], 'subject_id' => $math->id],
                 [
                     'description' => $data['description'],
-                    'created_by' => 1,
+                    'created_by' => $authorId,
                     'difficulty' => $data['difficulty'],
                     'duration_minutes' => $data['duration_minutes'],
                     'xp_reward' => $data['xp_reward'],

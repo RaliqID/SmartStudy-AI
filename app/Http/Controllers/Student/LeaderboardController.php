@@ -18,6 +18,7 @@ class LeaderboardController extends Controller
             $period = 'weekly';
         }
 
+        /** @var \App\Models\User $me */
         $me = auth()->user();
 
         if ($period === 'all') {

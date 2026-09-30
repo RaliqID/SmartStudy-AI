@@ -67,7 +67,15 @@ class TeacherDashboardController extends Controller
                 'date'         => $p->last_accessed_at?->toDateString(),
             ]);
 
-        $recentActivity = $recentAttempts->merge($recentProgress)->sortByDesc('date')->values()->take(10);
+        // Both lists were already mapped to plain arrays, so they must be merged
+        // through the base Collection. Eloquent's Collection::merge() would call
+        // getKey() on each array item and throw "Call to a member function
+        // getKey() on array" (HTTP 500).
+        $recentActivity = collect($recentAttempts->all())
+            ->merge($recentProgress->all())
+            ->sortByDesc('date')
+            ->values()
+            ->take(10);
 
         return Inertia::render('Teacher/Dashboard', [
             'user' => [

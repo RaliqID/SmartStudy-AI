@@ -19,6 +19,7 @@ class QuizController extends Controller
 {
     public function index()
     {
+        /** @var \App\Models\User $user */
         $user = auth()->user();
         $weekStart = now()->startOfWeek();
 
@@ -92,6 +93,8 @@ class QuizController extends Controller
     public function start(Quiz $quiz)
     {
         abort_unless($quiz->is_published && $quiz->is_active, 404);
+
+        /** @var \App\Models\User $user */
 
         $user = auth()->user();
 

@@ -13,6 +13,7 @@ class MaterialsController extends Controller
 {
     public function show(Material $material)
     {
+        /** @var \App\Models\User $user */
         $user = auth()->user();
         $material->load(['unit.subject']);
 
@@ -61,6 +62,7 @@ class MaterialsController extends Controller
 
     public function complete(Request $request, Material $material)
     {
+        /** @var \App\Models\User $user */
         $user = auth()->user();
 
         // Idempotent: firstOrCreate — only dispatch on NEW completion

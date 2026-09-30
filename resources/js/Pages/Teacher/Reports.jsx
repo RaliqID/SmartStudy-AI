@@ -26,13 +26,21 @@ function SubjectBreakdown({ breakdown }) {
     if (!breakdown?.length) return null;
     return (
         <div className="flex flex-wrap gap-2 mt-2">
-            {breakdown.map((sb) => (
-                <div key={sb.subject_name} className="flex items-center gap-2 px-sm py-xs bg-surface-container-low rounded-xl border border-outline-variant/40">
-                    <span className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: sb.color }} aria-hidden="true"></span>
-                    <span className="font-body-md text-body-md text-on-surface truncate">{sb.subject_name}</span>
-                    <span className="font-label-bold text-label-bold text-on-surface-variant text-xs">{sb.mastery}% · {sb.avg_score}%</span>
-                </div>
-            ))}
+            {breakdown.map((sb) => {
+                // A subject with no graded quizzes reads 0%, which looks like a
+                // broken score. Show "No attempts" instead so teachers can tell
+                // "not started" apart from "scored zero".
+                const attempted = Number(sb.avg_score) > 0;
+                return (
+                    <div key={sb.subject_name} className="flex items-center gap-2 px-sm py-xs bg-surface-container-low rounded-xl border border-outline-variant/40">
+                        <span className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: sb.color }} aria-hidden="true"></span>
+                        <span className="font-body-md text-body-md text-on-surface truncate">{sb.subject_name}</span>
+                        <span className="font-label-bold text-label-bold text-on-surface-variant text-xs">
+                            {sb.mastery}% · {attempted ? `${sb.avg_score}%` : 'No attempts'}
+                        </span>
+                    </div>
+                );
+            })}
         </div>
     );
 }

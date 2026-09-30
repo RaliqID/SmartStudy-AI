@@ -64,6 +64,23 @@ class CourseContentSeeder extends Seeder
      */
     private array $curriculum = [];
 
+    /**
+     * Cached author id for created materials (resolved on first use).
+     */
+    private ?int $authorId = null;
+
+    /**
+     * Attribute seeded materials to the demo teacher so the teacher-facing
+     * Materials/Reports pages (scoped by created_by) are populated. Falls back
+     * to the admin, then any user, when roles have not been seeded yet.
+     */
+    private function resolveAuthorId(): ?int
+    {
+        return \App\Models\User::role('teacher')->value('id')
+            ?? \App\Models\User::role('admin')->value('id')
+            ?? \App\Models\User::value('id');
+    }
+
     public function run(): void
     {
         $this->curriculum = $this->buildCurriculum();
@@ -114,6 +131,9 @@ class CourseContentSeeder extends Seeder
                             'duration_minutes' => $material['duration'],
                             'order_index' => $materialIndex + 1,
                             'is_active' => true,
+                            // Owned by the demo teacher so the teacher Materials
+                            // page (which scopes by created_by) is populated.
+                            'created_by' => $this->authorId ??= $this->resolveAuthorId(),
                         ]
                     );
                 }

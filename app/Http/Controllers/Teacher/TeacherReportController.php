@@ -21,7 +21,7 @@ class TeacherReportController extends Controller
                 'id'             => $k->id,
                 'name'           => $k->name,
                 'students_count' => $k->students_count,
-                'subject'        => $k->subject ? ['name' => $k->subject->name, 'color' => $k->subject->color] : null,
+                'subject'        => $k->subject ? ['name' => $k->subject->name, 'icon' => $k->subject->icon, 'color' => $k->subject->color] : null,
             ]);
 
         return Inertia::render('Teacher/Reports', [
@@ -71,7 +71,7 @@ class TeacherReportController extends Controller
                     'id'             => $k->id,
                     'name'           => $k->name,
                     'students_count' => $k->students_count,
-                    'subject'        => $k->subject ? ['name' => $k->subject->name, 'color' => $k->subject->color] : null,
+                    'subject'        => $k->subject ? ['name' => $k->subject->name, 'icon' => $k->subject->icon, 'color' => $k->subject->color] : null,
                 ]),
             'currentClass' => [
                 'id'        => $class->id,

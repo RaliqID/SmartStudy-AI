@@ -14,6 +14,12 @@ class DemoContentSeeder extends Seeder
 {
     public function run(): void
     {
+        // Attribute seeded materials to the demo teacher so the teacher-facing
+        // Materials page (scoped by created_by) is populated after seeding.
+        $authorId = \App\Models\User::role('teacher')->value('id')
+            ?? \App\Models\User::role('admin')->value('id')
+            ?? \App\Models\User::value('id');
+
         // ===== Subjects =====
         $subjectsData = [
             [
@@ -96,6 +102,7 @@ class DemoContentSeeder extends Seeder
                             'duration_minutes' => 10 + ($j * 5),
                             'order_index' => $j,
                             'is_active' => true,
+                            'created_by' => $authorId,
                         ]
                     );
                 }

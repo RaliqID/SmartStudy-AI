@@ -11,6 +11,7 @@ class ScheduleController extends Controller
 {
     public function index(Request $request)
     {
+        /** @var \App\Models\User $user */
         $user = auth()->user();
 
         // ?month=YYYY-MM, default current month

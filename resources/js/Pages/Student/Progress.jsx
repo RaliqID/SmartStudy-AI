@@ -12,6 +12,8 @@ import AppLayout from '@/Layouts/AppLayout';
  *   streakCalendar: [{ date: 'YYYY-MM-DD', active: boolean }]
  *   achievements: [{ name, description, icon, unlocked_at, xp_reward }]
  *   quests: [{ name, description, icon, progress, target_value, is_completed, xp_reward }]
+ *   recentQuizzes: [{ id, quiz_title, subject_name, subject_color, score, earned_points, total_points, completed_at, time_spent_seconds }]
+ *   xpTimeline: { total_this_week, best_day, best_day_xp, days: [{ date, label, xp }] }
  */
 
 const achievementPalettes = [
@@ -19,6 +21,22 @@ const achievementPalettes = [
     { circle: 'bg-primary-fixed text-on-primary-fixed border-primary-container' },
     { circle: 'bg-secondary-fixed text-on-secondary-fixed border-secondary' },
 ];
+
+/** Format seconds as a short "12m" / "1h 05m" label. */
+function formatDuration(seconds) {
+    const total = Number(seconds) || 0;
+    if (total < 60) return `${total}s`;
+    const mins = Math.round(total / 60);
+    if (mins < 60) return `${mins}m`;
+    return `${Math.floor(mins / 60)}h ${String(mins % 60).padStart(2, '0')}m`;
+}
+
+/** Colour a quiz score by band so a weak result reads at a glance. */
+function scoreBand(score) {
+    if (score >= 90) return 'text-primary';
+    if (score >= 70) return 'text-secondary';
+    return 'text-error';
+}
 
 function ChunkyBar({ pct, color, className = 'h-4' }) {
     return (
@@ -50,22 +68,27 @@ function ScoreRing({ pct }) {
 
 function MetricCard({ icon, iconClasses, label, value, sublabel }) {
     return (
-        <div className="h-full min-w-0 bg-surface-container-lowest rounded-2xl chunky-border p-md lg:p-lg flex flex-col">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${iconClasses}`}>
-                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">
-                    {icon}
+        <div className="h-full min-w-0 bg-surface-container-lowest rounded-2xl chunky-border p-md flex flex-col">
+            {/* Icon + value share the top line so every card reads the same way. */}
+            <div className="flex items-center gap-sm">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${iconClasses}`}>
+                    <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">
+                        {icon}
+                    </span>
+                </div>
+                <span className={`font-display text-headline-lg font-black leading-none tabular-nums ${value.classes || 'text-on-surface'}`}>{value.text}</span>
+            </div>
+            <h3 className="font-label-bold text-label-bold uppercase tracking-wide text-on-surface-variant text-[11px] leading-snug mt-sm">{label}</h3>
+            {sublabel && (
+                <span className="font-label-bold text-label-bold text-on-surface-variant/70 uppercase text-[10px] mt-xs leading-tight">
+                    {sublabel}
                 </span>
-            </div>
-            <h3 className="font-body-lg text-body-lg text-on-surface-variant leading-snug mt-sm">{label}</h3>
-            <div className="mt-auto flex flex-col min-w-0">
-                <span className={`font-display text-display font-black ${value.classes || 'text-on-surface'}`}>{value.text}</span>
-                {sublabel && <span className="font-label-bold text-label-bold text-on-surface-variant/70 uppercase text-xs mt-1 leading-tight">{sublabel}</span>}
-            </div>
+            )}
         </div>
     );
 }
 
-export default function Progress({ auth, overall = 0, avgScore = 0, streak = {}, subjectMastery = [], streakCalendar = [], achievements = [], quests = [] }) {
+export default function Progress({ auth, overall = 0, avgScore = 0, streak = {}, subjectMastery = [], streakCalendar = [], achievements = [], quests = [], recentQuizzes = [], xpTimeline = null }) {
     const freezesLeft = auth?.user?.streak_freezes_left ?? 0;
     const today = new Date().toISOString().slice(0, 10);
     const totalMaterials = subjectMastery.reduce((sum, s) => sum + (s.materials_completed || 0), 0);
@@ -90,19 +113,18 @@ export default function Progress({ auth, overall = 0, avgScore = 0, streak = {},
 
             {/* Top Metrics Grid — 2 cols mobile, 6-col on desktop (Overall spans 2) */}
             <div className="grid grid-cols-2 lg:grid-cols-6 gap-sm sm:gap-lg mb-xl">
-                <div className="col-span-2 bg-surface-container-lowest rounded-2xl chunky-border p-md lg:p-lg flex flex-col">
-                    <div className="flex items-center gap-sm mb-md">
-                        <div className="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
-                            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">star</span>
+                <div className="col-span-2 h-full min-h-[132px] bg-surface-container-lowest rounded-2xl chunky-border p-md flex flex-col">
+                    <div className="flex items-center justify-between gap-sm">
+                        <div className="flex items-center gap-sm min-w-0">
+                            <div className="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shrink-0">
+                                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">star</span>
+                            </div>
+                            <span className="font-display text-headline-lg font-black text-secondary tabular-nums leading-none">{overall}%</span>
                         </div>
-                        <h3 className="font-headline-md text-headline-md text-on-surface">Overall</h3>
-                    </div>
-                    {/* my-auto + py-sm keeps the value vertically centred in the
-                        card instead of stranding it at the bottom edge. */}
-                    <div className="my-auto py-sm flex items-center justify-between gap-md">
-                        <span className="font-display text-display text-secondary tabular-nums">{overall}%</span>
                         <ScoreRing pct={Math.round(overall)} />
                     </div>
+                    <h3 className="font-label-bold text-label-bold uppercase tracking-wide text-on-surface-variant text-[11px] mt-sm">Overall</h3>
+                    <span className="font-label-bold text-label-bold text-on-surface-variant/70 uppercase text-[10px] mt-xs leading-tight">Average mastery</span>
                 </div>
 
                 <div className="lg:col-span-1">
@@ -138,23 +160,26 @@ export default function Progress({ auth, overall = 0, avgScore = 0, streak = {},
                         iconClasses="bg-secondary-container text-on-secondary-container"
                         label="Streak Freezes"
                         value={{ text: `${freezesLeft}/2`, classes: 'text-secondary' }}
-                        sublabel={freezesLeft > 0 ? 'Auto-protects your streak' : 'Refills next month'}
+                        sublabel={freezesLeft > 0 ? 'Protects streak' : 'Refills monthly'}
                     />
                 </div>
             </div>
 
             {/* Activity & Mastery */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-xl">
-                {/* Streak Calendar */}
-                <div className="lg:col-span-2 h-full flex flex-col bg-surface-container-lowest rounded-2xl chunky-border p-lg">
-                    <div className="flex flex-wrap justify-between items-center gap-sm mb-lg">
-                        <h3 className="font-headline-lg text-headline-lg text-on-surface">Streak Calendar</h3>
-                        <div className="flex items-center gap-xs" aria-hidden="true">
-                            <span className="w-3 h-3 rounded-sm bg-surface-container-high"></span>
-                            <span className="w-3 h-3 rounded-sm bg-primary-container"></span>
+                {/* Left column: Streak Calendar + Recent Quizzes + XP this week */}
+                <div className="lg:col-span-2 flex flex-col gap-lg">
+                    {/* Streak Calendar */}
+                    <div className="bg-surface-container-lowest rounded-2xl chunky-border p-lg">
+                        <div className="flex flex-wrap justify-between items-center gap-sm mb-lg">
+                            <h3 className="font-headline-lg text-headline-lg text-on-surface">Streak Calendar</h3>
+                            <div className="flex items-center gap-xs font-label-bold text-label-bold text-on-surface-variant text-xs uppercase">
+                                <span className="w-3 h-3 rounded-sm bg-surface-container-high"></span>
+                                <span className="mr-sm">No activity</span>
+                                <span className="w-3 h-3 rounded-sm bg-primary-container"></span>
+                                <span>Active</span>
+                            </div>
                         </div>
-                    </div>
-                    <div className="flex-1 flex flex-col justify-center">
                         <div className="grid grid-cols-7 gap-1 sm:gap-xs">
                             {streakCalendarCells.map((day, idx) =>
                                 day === null
@@ -168,14 +193,104 @@ export default function Progress({ auth, overall = 0, avgScore = 0, streak = {},
                                     ></div>
                             )}
                         </div>
+                        <div className="mt-lg flex items-center gap-sm text-on-surface-variant">
+                            <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">
+                                local_fire_department
+                            </span>
+                            <span className="font-label-bold text-label-bold">
+                                {streak.current > 0 ? `You're on a ${streak.current}-day roll! Keep it up!` : 'Study today to start a new streak!'}
+                            </span>
+                        </div>
                     </div>
-                    <div className="mt-auto pt-lg flex items-center gap-sm text-on-surface-variant">
-                        <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">
-                            local_fire_department
-                        </span>
-                        <span className="font-label-bold text-label-bold">
-                            {streak.current > 0 ? `You're on a ${streak.current}-day roll! Keep it up!` : 'Study today to start a new streak!'}
-                        </span>
+
+                    {/* Two compact panels fill the column beside the taller right rail */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-lg">
+                        {/* Recent Quiz Results */}
+                        <div className="bg-surface-container-lowest rounded-2xl chunky-border p-lg flex flex-col">
+                            <div className="flex items-center justify-between gap-sm mb-md">
+                                <h3 className="font-headline-md text-headline-md text-on-surface flex items-center gap-xs">
+                                    <span className="material-symbols-outlined text-secondary" aria-hidden="true">quiz</span>
+                                    Recent Quizzes
+                                </h3>
+                                <Link href="/student/quizzes" className="font-label-bold text-label-bold text-secondary text-xs uppercase hover:underline shrink-0">
+                                    View all
+                                </Link>
+                            </div>
+                            {recentQuizzes.length > 0 ? (
+                                <ul className="flex flex-col gap-sm">
+                                    {recentQuizzes.map((attempt) => (
+                                        <li key={attempt.id} className="flex items-center gap-md rounded-xl bg-surface-container-low border-2 border-surface-container-highest border-b-4 p-sm">
+                                            <div className="w-11 h-11 rounded-full bg-surface-container-high flex items-center justify-center shrink-0 border-b-4 border-surface-container-highest">
+                                                <span className={`font-label-bold text-label-bold font-black tabular-nums ${scoreBand(attempt.score)}`}>
+                                                    {Math.round(attempt.score)}
+                                                </span>
+                                            </div>
+                                            <div className="min-w-0 flex-1">
+                                                <p className="font-body-md text-body-md font-bold text-on-surface truncate">{attempt.quiz_title}</p>
+                                                <p className="font-body-md text-body-md text-on-surface-variant/70 text-xs truncate">
+                                                    {attempt.subject_name || 'General'} · {attempt.earned_points}/{attempt.total_points} pts · {formatDuration(attempt.time_spent_seconds)}
+                                                </p>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <div className="flex-1 flex flex-col items-center justify-center gap-sm py-lg text-center">
+                                    <span className="material-symbols-outlined text-[40px] text-on-surface-variant" aria-hidden="true">quiz</span>
+                                    <p className="font-body-md text-body-md text-on-surface-variant">Take your first quiz to see results here.</p>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* XP This Week */}
+                        <div className="bg-surface-container-lowest rounded-2xl chunky-border p-lg flex flex-col">
+                            <div className="flex items-start justify-between gap-sm mb-md">
+                                <h3 className="font-headline-md text-headline-md text-on-surface flex items-center gap-xs">
+                                    <span className="material-symbols-outlined text-tertiary" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">bolt</span>
+                                    XP This Week
+                                </h3>
+                                <div className="text-right shrink-0">
+                                    <p className="font-headline-md text-headline-md font-black text-tertiary tabular-nums leading-none">+{xpTimeline?.total_this_week ?? 0}</p>
+                                    <p className="font-label-bold text-label-bold text-on-surface-variant text-[10px] uppercase">7 days</p>
+                                </div>
+                            </div>
+                            {xpTimeline?.days?.length ? (
+                                <>
+                                    <div className="flex-1 flex items-end justify-between gap-2 h-24 mt-sm">
+                                        {xpTimeline.days.map((day) => {
+                                            const max = Math.max(...xpTimeline.days.map((d) => d.xp), 1);
+                                            const heightPct = Math.max(Math.round((day.xp / max) * 100), day.xp > 0 ? 8 : 0);
+                                            return (
+                                                <div key={day.date} className="flex-1 flex flex-col items-center gap-1 h-full justify-end" title={`${day.label}: ${day.xp} XP`}>
+                                                    <div
+                                                        className={`w-full rounded-t-md transition-all ${day.xp > 0 ? 'bg-tertiary-container' : 'bg-surface-container-high'}`}
+                                                        style={{ height: `${day.xp > 0 ? heightPct : 4}%` }}
+                                                    ></div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                    <div className="flex items-center justify-between gap-2 mt-sm">
+                                        {xpTimeline.days.map((day) => (
+                                            <span key={`lbl-${day.date}`} className="flex-1 text-center font-label-bold text-label-bold text-on-surface-variant text-[10px] uppercase">
+                                                {day.label.slice(0, 2)}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    {xpTimeline.best_day && (
+                                        <p className="mt-md font-label-bold text-label-bold text-on-surface-variant text-xs flex items-center gap-1">
+                                            <span className="material-symbols-outlined text-[16px] text-tertiary" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">trending_up</span>
+                                            Best day: {xpTimeline.best_day} ({xpTimeline.best_day_xp} XP)
+                                        </p>
+                                    )}
+                                </>
+                            ) : (
+                                <div className="flex-1 flex flex-col items-center justify-center gap-sm py-lg text-center">
+                                    <span className="material-symbols-outlined text-[40px] text-on-surface-variant" aria-hidden="true">bolt</span>
+                                    <p className="font-body-md text-body-md text-on-surface-variant">Earn XP by completing lessons and quizzes.</p>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
 

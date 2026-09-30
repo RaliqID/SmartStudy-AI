@@ -129,6 +129,28 @@ class ProgressController extends Controller
             'is_completed' => (bool) ($userQuestData[$q->id]->is_completed ?? false),
         ]);
 
+        // Most recent completed quiz attempts (newest first)
+        $recentQuizzes = QuizAttempt::where('user_id', $user->id)
+            ->where('status', 'completed')
+            ->with('quiz:id,title,subject_id', 'quiz.subject:id,name,color')
+            ->latest('completed_at')
+            ->limit(5)
+            ->get()
+            ->map(fn ($attempt) => [
+                'id' => $attempt->id,
+                'quiz_title' => $attempt->quiz ? $attempt->quiz->title : 'Unknown Quiz',
+                'subject_name' => $attempt->quiz && $attempt->quiz->subject ? $attempt->quiz->subject->name : null,
+                'subject_color' => $attempt->quiz && $attempt->quiz->subject ? $attempt->quiz->subject->color : null,
+                'score' => (float) $attempt->score,
+                'total_points' => (int) $attempt->total_points,
+                'earned_points' => (int) $attempt->earned_points,
+                'completed_at' => $attempt->completed_at?->toISOString(),
+                'time_spent_seconds' => (int) $attempt->time_spent_seconds,
+            ]);
+
+        // XP earned over the last 7 days (oldest first, today last)
+        $xpTimeline = $this->buildXpTimeline($user->id);
+
         return Inertia::render('Student/Progress', [
             'overall' => round($overall, 1),
             'avgScore' => round($avgScore, 1),
@@ -137,6 +159,40 @@ class ProgressController extends Controller
             'streakCalendar' => $calendar,
             'achievements' => $achievements,
             'quests' => $questsData,
+            'recentQuizzes' => $recentQuizzes,
+            'xpTimeline' => $xpTimeline,
         ]);
+    }
+
+    /**
+     * Build a 7-day XP timeline (oldest first) with a weekly summary.
+     */
+    private function buildXpTimeline(int $userId): array
+    {
+        $dailyXp = XpTransaction::where('user_id', $userId)
+            ->where('created_at', '>=', Carbon::today()->subDays(6))
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(xp_amount) as xp'))
+            ->groupBy('date')
+            ->pluck('xp', 'date');
+
+        $days = collect(range(6, 0))->map(function ($i) use ($dailyXp) {
+            $date = Carbon::today()->subDays($i);
+            $key = $date->toDateString();
+
+            return [
+                'date' => $key,
+                'label' => $date->format('D'),
+                'xp' => (int) ($dailyXp[$key] ?? 0),
+            ];
+        })->values();
+
+        $best = $days->sortByDesc('xp')->first();
+
+        return [
+            'total_this_week' => (int) $days->sum('xp'),
+            'best_day' => $best && $best['xp'] > 0 ? $best['label'] : null,
+            'best_day_xp' => $best ? (int) $best['xp'] : 0,
+            'days' => $days->all(),
+        ];
     }
 }

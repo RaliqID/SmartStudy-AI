@@ -167,7 +167,7 @@ export default function Schedule({ auth, events = {}, month = '', subjects = [] 
                 </button>
             </header>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-lg items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-lg">
                 {/* Calendar Card */}
                 <div className="lg:col-span-2 bg-surface rounded-[24px] chunky-border p-lg flex flex-col gap-md">
                     <div className="flex justify-between items-center mb-sm">

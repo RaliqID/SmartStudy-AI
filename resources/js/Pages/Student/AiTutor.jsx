@@ -122,7 +122,27 @@ export default function AiTutor({ auth, conversations = [], currentConversation 
     const [input, setInput] = useState('');
     const [streaming, setStreaming] = useState(false);
     const [streamText, setStreamText] = useState('');
-    const [relatedTopics, setRelatedTopics] = useState(currentConversation?.related_topics || FALLBACK_TOPICS);
+    // related_topics is a JSON column: normalise defensively so a raw string or
+    // null (older rows, API drift) can never reach relatedTopics.map() and
+    // blank the whole page.
+    const asTopicArray = (value) => {
+        if (Array.isArray(value)) return value;
+        if (typeof value === 'string') {
+            try {
+                const parsed = JSON.parse(value);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch {
+                return [];
+            }
+        }
+        return [];
+    };
+
+    const [relatedTopics, setRelatedTopics] = useState(
+        () => asTopicArray(currentConversation?.related_topics).length
+            ? asTopicArray(currentConversation.related_topics)
+            : FALLBACK_TOPICS,
+    );
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     const scrollRef = useRef(null);
@@ -142,7 +162,8 @@ export default function AiTutor({ auth, conversations = [], currentConversation 
         setSyncedConversationId(currentConversation?.id ?? null);
         setMessages(currentConversation?.messages || []);
         setConversationId(currentConversation?.id || null);
-        setRelatedTopics(currentConversation?.related_topics || FALLBACK_TOPICS);
+        const synced = asTopicArray(currentConversation?.related_topics);
+        setRelatedTopics(synced.length ? synced : FALLBACK_TOPICS);
         setStreamText('');
         setStreaming(false);
     }
@@ -286,8 +307,8 @@ export default function AiTutor({ auth, conversations = [], currentConversation 
                     Related Topics
                 </h2>
                 <div className="flex flex-col gap-sm">
-                    {relatedTopics.map((topic) => (
-                        <RelatedTopicCard key={topic.id} topic={topic} />
+                    {relatedTopics.map((topic, idx) => (
+                        <RelatedTopicCard key={topic.id ?? topic.title ?? idx} topic={topic} />
                     ))}
                 </div>
             </div>

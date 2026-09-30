@@ -136,7 +136,12 @@ function QuizCard({ quiz, starting, onStart }) {
 }
 
 export default function QuizList({ auth, quizzes = [], weeklyStats = {} }) {
-    const [activeTab, setActiveTab] = useState('available');
+    // Open on a tab that actually has content: a fully-attempted student has no
+    // "available" quizzes, and an empty landing tab reads as a broken page.
+    const [activeTab, setActiveTab] = useState(() => {
+        const has = (key) => quizzes.some((q) => (q.status || 'available').toLowerCase() === key);
+        return ['available', 'recommended', 'completed'].find(has) || 'available';
+    });
     const [startingId, setStartingId] = useState(null);
 
     const { quizzes_taken = 0, avg_score = 0, xp_earned = 0 } = weeklyStats;

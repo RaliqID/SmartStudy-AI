@@ -122,7 +122,7 @@ export default function Dashboard({ auth, ...pageProps }) {
                     {cl && clSubject ? (
                         <div className="bg-surface rounded-2xl chunky-border p-lg flex flex-col sm:flex-row items-center gap-lg relative">
                             <div className="absolute top-2 right-4 flex gap-1" aria-hidden="true">
-                                <span className="material-symbols-outlined text-primary/30 text-sm">sparkles</span>
+                                <span className="material-symbols-outlined text-primary/30 text-sm">auto_awesome</span>
                                 <span className="material-symbols-outlined text-primary/20 text-xs">auto_awesome</span>
                             </div>
                             <div

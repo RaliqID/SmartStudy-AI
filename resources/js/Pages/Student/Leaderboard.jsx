@@ -39,7 +39,7 @@ function PodiumSlot({ entry, rank }) {
             <span className={`font-label-bold text-label-bold text-[12px] uppercase px-2 py-0.5 rounded-full border-2 ${styles.rank}`}>
                 #{rank} {rank === 1 ? '👑' : ''}
             </span>
-            <p className={`font-body-lg text-body-lg font-bold text-on-surface ${entry.is_you ? 'text-primary' : ''} text-center leading-tight max-w-[100px] truncate`}>
+            <p className={`font-body-md text-body-md md:font-body-lg md:text-body-lg font-bold text-on-surface ${entry.is_you ? 'text-primary' : ''} text-center leading-tight max-w-[130px] break-words line-clamp-2`}>
                 {entry.name}
             </p>
             <p className="font-label-bold text-label-bold text-tertiary">{entry.xp.toLocaleString()} XP</p>

@@ -69,16 +69,16 @@ function ScoreRing({ pct }) {
 function MetricCard({ icon, iconClasses, label, value, sublabel }) {
     return (
         <div className="h-full min-w-0 bg-surface-container-lowest rounded-2xl chunky-border p-md flex flex-col">
-            {/* Icon + value share the top line so every card reads the same way. */}
-            <div className="flex items-center gap-sm">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${iconClasses}`}>
-                    <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">
-                        {icon}
-                    </span>
-                </div>
-                <span className={`font-display text-headline-lg font-black leading-none tabular-nums ${value.classes || 'text-on-surface'}`}>{value.text}</span>
+            {/* Icon sits on its own line above the value: in a 137px desktop
+                track, icon (40px) + a 24px value do not fit side by side and
+                the value would overflow the card border. */}
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${iconClasses}`}>
+                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">
+                    {icon}
+                </span>
             </div>
-            <h3 className="font-label-bold text-label-bold uppercase tracking-wide text-on-surface-variant text-[11px] leading-snug mt-sm">{label}</h3>
+            <span className={`font-display text-headline-lg font-black leading-none tabular-nums mt-sm truncate ${value.classes || 'text-on-surface'}`}>{value.text}</span>
+            <h3 className="font-label-bold text-label-bold uppercase tracking-wide text-on-surface-variant text-[11px] leading-snug mt-xs">{label}</h3>
             {sublabel && (
                 <span className="font-label-bold text-label-bold text-on-surface-variant/70 uppercase text-[10px] mt-xs leading-tight">
                     {sublabel}
@@ -113,17 +113,17 @@ export default function Progress({ auth, overall = 0, avgScore = 0, streak = {},
 
             {/* Top Metrics Grid — 2 cols mobile, 6-col on desktop (Overall spans 2) */}
             <div className="grid grid-cols-2 lg:grid-cols-6 gap-sm sm:gap-lg mb-xl">
-                <div className="col-span-2 h-full min-h-[132px] bg-surface-container-lowest rounded-2xl chunky-border p-md flex flex-col">
+                <div className="col-span-2 h-full bg-surface-container-lowest rounded-2xl chunky-border p-md flex flex-col">
+                    {/* Overall spans two columns, so there is room to pair the
+                        icon with the ring on one row and keep the value below. */}
                     <div className="flex items-center justify-between gap-sm">
-                        <div className="flex items-center gap-sm min-w-0">
-                            <div className="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shrink-0">
-                                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">star</span>
-                            </div>
-                            <span className="font-display text-headline-lg font-black text-secondary tabular-nums leading-none">{overall}%</span>
+                        <div className="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shrink-0">
+                            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">star</span>
                         </div>
                         <ScoreRing pct={Math.round(overall)} />
                     </div>
-                    <h3 className="font-label-bold text-label-bold uppercase tracking-wide text-on-surface-variant text-[11px] mt-sm">Overall</h3>
+                    <span className="font-display text-display font-black text-secondary tabular-nums leading-none mt-sm">{overall}%</span>
+                    <h3 className="font-label-bold text-label-bold uppercase tracking-wide text-on-surface-variant text-[11px] mt-xs">Overall</h3>
                     <span className="font-label-bold text-label-bold text-on-surface-variant/70 uppercase text-[10px] mt-xs leading-tight">Average mastery</span>
                 </div>
 

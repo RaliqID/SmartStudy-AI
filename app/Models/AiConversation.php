@@ -17,10 +17,14 @@ class AiConversation extends Model
         'title',
         'total_messages',
         'last_message_at',
+        'related_topics',
     ];
 
     protected $casts = [
         'last_message_at' => 'datetime',
+        // Stored as a JSON column; without this cast the raw JSON string is
+        // handed to the frontend and relatedTopics.map() throws.
+        'related_topics' => 'array',
     ];
 
     public function user(): BelongsTo

@@ -1,4 +1,3 @@
-import { usePage } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
 
 function StatCard({ icon, iconBg, value, label }) {
@@ -22,7 +21,7 @@ function DailyActiveChart({ data = [] }) {
         <div className="bg-surface-container-lowest rounded-2xl chunky-border p-lg">
             <h2 className="font-headline-lg text-headline-lg text-on-surface mb-md">Daily Active Users — 14 Hari</h2>
             <div className="flex items-end gap-[3px] h-36">
-                {data.map((d, i) => (
+                {data.map((d, _i) => (
                     <div key={d.date} className="flex-1 flex flex-col items-center gap-1 justify-end h-full">
                         {d.count > 0 && <span className="font-label-bold text-[9px] text-on-surface-variant">{d.count}</span>}
                         <div

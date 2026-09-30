@@ -1,15 +1,9 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
-import { Link, useForm, usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 
-export default function AuthenticatedLayout({ header, children }) {
+export default function AuthenticatedLayout({ _header, children }) {
     const user = usePage().props.auth.user;
-    const { post } = useForm();
-
-    const logout = (e) => {
-        e.preventDefault();
-        post(route('logout'));
-    };
 
     return (
         <div className="min-h-screen bg-background text-on-background">

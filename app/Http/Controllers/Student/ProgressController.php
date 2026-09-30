@@ -17,9 +17,10 @@ use Inertia\Inertia;
 
 class ProgressController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $user = auth()->user();
+        /** @var User $user */
+        $user = $request->user();
 
         // Overall average mastery
         $overall = (float) StudentProgress::where('user_id', $user->id)->avg('mastery_percentage') ?? 0;

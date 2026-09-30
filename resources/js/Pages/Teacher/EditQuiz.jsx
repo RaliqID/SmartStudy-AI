@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, router, useForm, usePage } from '@inertiajs/react';
 import TeacherLayout from '@/Layouts/TeacherLayout';
 
-function QuestionCard({ question, quizId, onDelete }) {
+function QuestionCard({ question, _quizId, onDelete }) {
     return (
         <div className="bg-surface-container-lowest rounded-2xl border-2 border-surface-container-highest border-b-4 p-md">
             <div className="flex items-start justify-between gap-sm">

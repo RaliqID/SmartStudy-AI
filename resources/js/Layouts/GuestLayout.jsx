@@ -58,7 +58,7 @@ export default function GuestLayout({ children }) {
                         </p>
                         <div className="bg-white/10 border-2 border-white/20 rounded-2xl p-6">
                             <span className="material-symbols-outlined text-yellow-300" aria-hidden="true">format_quote</span>
-                            <p className="text-white font-bold mt-2" style={{ fontSize: '17px', lineHeight: '24px' }}>"Learning is a treasure that follows its owner everywhere."</p>
+                            <p className="text-white font-bold mt-2" style={{ fontSize: '17px', lineHeight: '24px' }}>&quot;Learning is a treasure that follows its owner everywhere.&quot;</p>
                             <p className="text-white/50 uppercase mt-3" style={{ fontSize: '11px', fontWeight: 800, letterSpacing: '0.1em' }}>Keep showing up daily</p>
                         </div>
                     </div>

@@ -11,15 +11,17 @@ use App\Models\User;
 use App\Models\XpTransaction;
 use App\Services\AI\AiTutorService;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $user = auth()->user();
+        /** @var User $user */
+        $user = $request->user();
         $today = Carbon::today();
 
         // user prop — name, current_level, current_streak, xp

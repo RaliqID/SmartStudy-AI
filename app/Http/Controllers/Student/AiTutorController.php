@@ -17,7 +17,8 @@ class AiTutorController extends Controller
 {
     public function index(Request $request)
     {
-        $user = auth()->user();
+        /** @var \App\Models\User $user */
+        $user = $request->user();
 
         $conversations = $user->conversations()
             ->with('subject:id,name,slug,icon,color')
@@ -81,7 +82,8 @@ class AiTutorController extends Controller
             'subject_id' => ['nullable', 'integer', 'exists:subjects,id'],
         ]);
 
-        $user = auth()->user();
+        /** @var \App\Models\User $user */
+        $user = $request->user();
         $messageText = $validated['message'];
         $conversationId = $validated['conversation_id'] ?? null;
         $subjectId = $validated['subject_id'] ?? null;
@@ -154,13 +156,26 @@ class AiTutorController extends Controller
         );
 
         // Return SSE stream
-        return new StreamedResponse(function () use ($conversation, $userMessage, $aiMessages, $subject) {
+        return new StreamedResponse(function () use ($conversation, $userMessage, $aiMessages, $subject, $messageText) {
             $fullResponse = '';
             try {
                 $service = app(AiTutorService::class);
 
+                // Fail fast with an actionable message when the 9router
+                // Dev-Stack gateway has no API key configured, instead of
+                // letting the provider reject the request with a 401.
+                if (! $service->isConfigured()) {
+                    echo 'data: '.json_encode([
+                        'error' => 'AI Tutor is not configured yet. Set AI_API_KEY for the 9router Dev-Stack gateway in your .env file.',
+                    ])."\n\n";
+                    @ob_flush();
+                    @flush();
+
+                    return;
+                }
+
                 // Emit conversation id first — frontend tracks new conversations
-                echo "data: " . json_encode(['conversation_id' => $conversation->id]) . "\n\n";
+                echo 'data: '.json_encode(['conversation_id' => $conversation->id])."\n\n";
                 if (ob_get_level() > 0) { @ob_flush(); }
                 @flush();
 

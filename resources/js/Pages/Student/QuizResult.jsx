@@ -84,7 +84,7 @@ function ReviewItem({ item }) {
 }
 
 export default function QuizResult({ auth, attempt, review = [] }) {
-    const { score, earned_points, total_points, status, time_spent_seconds } = attempt;
+    const { score, earned_points, status, time_spent_seconds } = attempt;
     const passed = status === 'passed' || score >= 70;
     const minutes = Math.floor(time_spent_seconds / 60);
     const seconds = time_spent_seconds % 60;

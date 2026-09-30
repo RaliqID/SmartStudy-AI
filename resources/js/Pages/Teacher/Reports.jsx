@@ -61,7 +61,6 @@ export default function Reports({ auth, classes = [], currentClass = null, stude
             <div className="flex gap-sm overflow-x-auto mb-xl pb-2">
                 {classes.map((c) => {
                     const isActive = currentClass?.id === c.id;
-                    const color = c.subject?.color || '#006590';
                     return (
                         <Link
                             key={c.id}

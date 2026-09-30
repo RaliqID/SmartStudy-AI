@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { router, useForm, usePage } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
 
 function ClassRow({ cls, onDelete }) {

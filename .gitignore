@@ -35,3 +35,6 @@ database/*.sqlite-journal
 .env.backup
 
 *.blend1
+
+# aislop local cache
+.aislop/

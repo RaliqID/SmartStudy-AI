@@ -56,7 +56,7 @@ export default function Dashboard({ auth, classes = [], recentActivity = [], sta
             {/* Header */}
             <header className="mb-xl">
                 <h1 className="font-display text-display text-on-background">{greeting}, {firstName}!</h1>
-                <p className="font-body-lg text-body-lg text-on-surface-variant mt-2">Here's how your classes are doing.</p>
+                <p className="font-body-lg text-body-lg text-on-surface-variant mt-2">Here&apos;s how your classes are doing.</p>
             </header>
 
             {/* Stats */}

@@ -24,7 +24,7 @@ export default function CreateQuiz({ auth, subjects = [] }) {
         <TeacherLayout auth={auth}>
             <header className="mb-lg">
                 <h1 className="font-display text-display text-on-background mb-xs">Create Quiz</h1>
-                <p className="font-body-lg text-body-lg text-on-surface-variant">Set up the basics first — you'll add questions next.</p>
+                <p className="font-body-lg text-body-lg text-on-surface-variant">Set up the basics first — you&apos;ll add questions next.</p>
             </header>
 
             <div className="bg-surface-container-lowest rounded-2xl chunky-border p-lg md:p-xl max-w-2xl">

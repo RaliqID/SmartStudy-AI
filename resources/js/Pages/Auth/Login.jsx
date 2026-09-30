@@ -91,7 +91,7 @@ export default function Login({ status, canResetPassword }) {
                 </PrimaryButton>
 
                 <p className="font-body-md text-body-md text-on-surface-variant text-center mt-sm">
-                    Don't have an account?{' '}
+                    Don&apos;t have an account?{' '}
                     <Link href={route('register')} className="text-secondary font-bold hover:underline">
                         Register
                     </Link>

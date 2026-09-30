@@ -36,8 +36,12 @@ function MaterialChip({ material, color }) {
 }
 
 export default function SubjectDetail({ auth, subject: subjectProp }) {
-    // Props via function param (konsisten dgn pages lain), fallback usePage
-    const subject = subjectProp ?? usePage().props.subject;
+    // usePage() must be called unconditionally — calling it inside the
+    // fallback of a `??` after an early return breaks the Rules of Hooks.
+    const pageProps = usePage().props;
+
+    // Props via function param (konsisten dgn pages lain), fallback usePage.
+    const subject = subjectProp ?? pageProps.subject;
 
     if (!subject) {
         return (

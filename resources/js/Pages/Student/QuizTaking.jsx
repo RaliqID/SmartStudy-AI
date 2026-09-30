@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from 'react';
+import { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { router } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 
@@ -9,10 +9,6 @@ import AppLayout from '@/Layouts/AppLayout';
  *   attempt: { id }
  *   questions: [{ id, question_text, type, options: [{ id, option_text }] }]
  */
-const initialState = {
-    answers: {}, // questionId -> optionId
-    currentIndex: 0,
-};
 
 function reducer(state, action) {
     switch (action.type) {
@@ -38,7 +34,7 @@ function formatTime(seconds) {
     return `${m}:${s.toString().padStart(2, '0')}`;
 }
 
-export default function QuizTaking({ auth, quiz, attempt, questions }) {
+export default function QuizTaking({ auth, quiz, _attempt, questions }) {
     const [state, dispatch] = useReducer(reducer, {
         answers: {},
         currentIndex: 0,
@@ -66,12 +62,32 @@ export default function QuizTaking({ auth, quiz, attempt, questions }) {
         return () => clearInterval(timer);
     }, [timeLeft, submitted]);
 
-    // Auto-submit when timer hits zero — separate effect, stable dep
+    // Declared before the effects that reference it: calling handleSubmit()
+    // from an effect whose body runs before the `const` initialiser would hit
+    // the temporal dead zone and throw.
+    const handleSubmit = useCallback(() => {
+        if (submitted) return;
+        setSubmitted(true);
+        // Convert answers to format: { question_id: option_id }
+        router.post(
+            route('student.quiz.submit', quiz.id),
+            { answers },
+            {
+                onFinish: () => setSubmitted(false),
+            }
+        );
+    }, [answers, quiz.id, submitted]);
+
+    // Auto-submit when the countdown reaches zero. The submit is triggered
+    // from the timer callback itself (an event source) rather than from an
+    // effect watching `timeLeft`, so it never fires during render and cannot
+    // submit twice when the component re-renders.
+    const autoSubmittedRef = useRef(false);
     useEffect(() => {
-        if (timeLeft === 0 && !submitted) {
-            handleSubmit();
-        }
-    }, [timeLeft, submitted]);
+        if (timeLeft > 0 || submitted || autoSubmittedRef.current) return;
+        autoSubmittedRef.current = true;
+        handleSubmit();
+    }, [timeLeft, submitted, handleSubmit]);
 
     const handleSelect = (questionId, optionId) => {
         dispatch({ type: 'SELECT_ANSWER', questionId, optionId });
@@ -93,20 +109,6 @@ export default function QuizTaking({ auth, quiz, attempt, questions }) {
         if (currentIndex > 0) {
             dispatch({ type: 'PREV' });
         }
-    };
-
-    const handleSubmit = () => {
-        if (submitted) return;
-        setSubmitted(true);
-        // Convert answers to format: { question_id: option_id }
-        const payload = { answers };
-        router.post(
-            route('student.quiz.submit', quiz.id),
-            payload,
-            {
-                onFinish: () => setSubmitted(false),
-            }
-        );
     };
 
     // Answer progress: how many answered

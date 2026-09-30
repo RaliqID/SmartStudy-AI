@@ -29,7 +29,7 @@ export default function ForgotPassword({ status }) {
             <form onSubmit={submit} className="flex flex-col gap-sm">
                 <h2 className="font-display text-display text-on-background mb-sm">Reset your password</h2>
                 <p className="font-body-md text-body-md text-on-surface-variant mb-sm">
-                    Enter your email address and we'll send you a link to reset your password.
+                    Enter your email address and we&apos;ll send you a link to reset your password.
                 </p>
 
                 <div>

@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { Head, Link } from '@inertiajs/react';
 
 const HeroCap = lazy(() => import('@/Components/HeroCap'));
@@ -7,14 +7,21 @@ const HeroCap = lazy(() => import('@/Components/HeroCap'));
 
 function useInView(threshold = 0.2) {
     const ref = useRef(null);
-    const [inView, setInView] = useState(false);
+    // Resolved once during render: when IntersectionObserver is unavailable or
+    // the user prefers reduced motion there is nothing to observe, so content
+    // must be visible immediately. Computing this eagerly (instead of calling
+    // setInView synchronously in the effect) avoids a setState-in-effect and
+    // the extra render it would trigger.
+    const [inView, setInView] = useState(
+        () => typeof window === 'undefined'
+            || !('IntersectionObserver' in window)
+            || window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    );
     useEffect(() => {
+        // Nothing to observe: visibility was already resolved during render.
+        if (inView || typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
         const el = ref.current;
         if (!el) return;
-        if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            setInView(true);
-            return;
-        }
         const obs = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
@@ -26,7 +33,7 @@ function useInView(threshold = 0.2) {
         );
         obs.observe(el);
         return () => obs.disconnect();
-    }, [threshold]);
+    }, [threshold, inView]);
     return [ref, inView];
 }
 
@@ -76,12 +83,17 @@ function CountUp({ value, suffix = '' }) {
     const [display, setDisplay] = useState(0);
     const target = Number(value) || 0;
 
+    // Resolved once during render: a reduced-motion user should see the final
+    // value on the first paint, never an animated count-up frame. Reading this
+    // synchronously (instead of setDisplay(target) inside the effect) avoids a
+    // setState-in-effect and keeps the short-circuit out of the animation path.
+    const [reducedMotion] = useState(
+        () => typeof window !== 'undefined'
+            && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    );
+
     useEffect(() => {
-        if (!inView) return;
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            setDisplay(target);
-            return;
-        }
+        if (!inView || reducedMotion) return;
         let raf;
         const start = performance.now();
         const duration = 900;
@@ -93,11 +105,11 @@ function CountUp({ value, suffix = '' }) {
         };
         raf = requestAnimationFrame(tick);
         return () => cancelAnimationFrame(raf);
-    }, [inView, target]);
+    }, [inView, target, reducedMotion]);
 
     return (
         <span ref={ref} className="tabular-nums">
-            {display}
+            {reducedMotion ? target : display}
             {suffix}
         </span>
     );
@@ -147,10 +159,13 @@ function QuestRow({ icon, iconBg, iconColor, title, subtitle, action, actionColo
 /* ---------- Page ---------- */
 
 export default function Welcome({ canLogin, canRegister, stats = {}, subjects = [], achievements = [] }) {
-    const [reducedMotion, setReducedMotion] = useState(false);
-    useEffect(() => {
-        setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    }, []);
+    // Resolved during the initial render instead of in an effect: an effect
+    // would paint one animated frame before correcting itself, which is
+    // exactly what a reduced-motion user should not see.
+    const [reducedMotion] = useState(
+        () => typeof window !== 'undefined'
+            && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    );
 
     const chips = subjects.slice(0, 6);
 
@@ -280,7 +295,7 @@ export default function Welcome({ canLogin, canRegister, stats = {}, subjects = 
                                     <div className="landing-card p-md" style={{ backgroundColor: 'var(--color-surface-container)' }}>
                                         <div className="flex items-center justify-between mb-sm px-1">
                                             <span className="text-xs font-label-bold uppercase tracking-widest text-on-surface-variant">
-                                                Today's quest
+                                                Today&apos;s quest
                                             </span>
                                             <span className="inline-flex items-center gap-1 text-xs font-label-bold text-on-tertiary-container bg-tertiary-fixed/60 px-2.5 py-1 rounded-full border border-tertiary">
                                                 <span className="material-symbols-outlined text-sm" aria-hidden="true">bolt</span>

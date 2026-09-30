@@ -133,12 +133,19 @@ export default function AiTutor({ auth, conversations = [], currentConversation 
         scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
     }, [messages, streamText, streaming]);
 
-    // Sync when navigating between conversations
-    useEffect(() => {
+    // Reset conversation-scoped state when the student switches conversation.
+    // Done during render against the previous conversation id (React's
+    // "adjusting state when a prop changes" pattern) instead of in an effect,
+    // so the new conversation never renders once with the old messages.
+    const [syncedConversationId, setSyncedConversationId] = useState(currentConversation?.id ?? null);
+    if (syncedConversationId !== (currentConversation?.id ?? null)) {
+        setSyncedConversationId(currentConversation?.id ?? null);
         setMessages(currentConversation?.messages || []);
         setConversationId(currentConversation?.id || null);
         setRelatedTopics(currentConversation?.related_topics || FALLBACK_TOPICS);
-    }, [currentConversation?.id]);
+        setStreamText('');
+        setStreaming(false);
+    }
 
     const send = useCallback(
         async (rawText) => {
@@ -214,7 +221,7 @@ export default function AiTutor({ auth, conversations = [], currentConversation 
                         }
                     }
                 }
-            } catch (error) {
+            } catch {
                 full = full || 'Sorry, something went wrong. Please try again.';
             } finally {
                 setStreaming(false);
@@ -340,9 +347,9 @@ export default function AiTutor({ auth, conversations = [], currentConversation 
                                             psychology
                                         </span>
                                     </div>
-                                    <h2 className="font-headline-md text-headline-md text-on-surface">Hi! I'm your AI Tutor</h2>
+                                    <h2 className="font-headline-md text-headline-md text-on-surface">Hi! I&apos;m your AI Tutor</h2>
                                     <p className="font-body-md text-body-md text-on-surface-variant">
-                                        Ask anything about your lessons — I'll break it down step by step.
+                                        Ask anything about your lessons — I&apos;ll break it down step by step.
                                     </p>
                                 </div>
                             )}

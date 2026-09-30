@@ -50,18 +50,16 @@ function ScoreRing({ pct }) {
 
 function MetricCard({ icon, iconClasses, label, value, sublabel }) {
     return (
-        <div className="h-full bg-surface-container-lowest rounded-2xl chunky-border p-lg flex flex-col">
-            <div className="flex items-center gap-sm mb-md">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${iconClasses}`}>
-                    <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">
-                        {icon}
-                    </span>
-                </div>
-                <h3 className="font-body-lg text-body-lg text-on-surface-variant">{label}</h3>
+        <div className="h-full min-w-0 bg-surface-container-lowest rounded-2xl chunky-border p-md lg:p-lg flex flex-col">
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${iconClasses}`}>
+                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">
+                    {icon}
+                </span>
             </div>
-            <div className="mt-auto flex flex-col">
+            <h3 className="font-body-lg text-body-lg text-on-surface-variant leading-snug mt-sm">{label}</h3>
+            <div className="mt-auto flex flex-col min-w-0">
                 <span className={`font-display text-display font-black ${value.classes || 'text-on-surface'}`}>{value.text}</span>
-                {sublabel && <span className="font-label-bold text-label-bold text-on-surface-variant/70 uppercase text-xs mt-1">{sublabel}</span>}
+                {sublabel && <span className="font-label-bold text-label-bold text-on-surface-variant/70 uppercase text-xs mt-1 leading-tight">{sublabel}</span>}
             </div>
         </div>
     );
@@ -74,6 +72,14 @@ export default function Progress({ auth, overall = 0, avgScore = 0, streak = {},
     const unlockedAchievements = achievements.filter((a) => a.unlocked_at);
     const activeQuests = quests.filter((q) => !q.is_completed).length;
 
+    // Streak calendar is newest-first, so the first cell is today. Pad the leading
+    // cells so each column lines up with a fixed weekday, giving every row 7 cells.
+    const streakCalendarOffset = streakCalendar.length > 0 ? new Date(`${today}T00:00:00Z`).getUTCDay() : 0;
+    const streakCalendarCells = [
+        ...Array(streakCalendarOffset).fill(null),
+        ...streakCalendar,
+    ];
+
     return (
         <AppLayout auth={auth}>
             {/* Header */}
@@ -84,14 +90,16 @@ export default function Progress({ auth, overall = 0, avgScore = 0, streak = {},
 
             {/* Top Metrics Grid — 2 cols mobile, 6-col on desktop (Overall spans 2) */}
             <div className="grid grid-cols-2 lg:grid-cols-6 gap-sm sm:gap-lg mb-xl">
-                <div className="col-span-2 bg-surface-container-lowest rounded-2xl chunky-border p-lg flex flex-col">
+                <div className="col-span-2 bg-surface-container-lowest rounded-2xl chunky-border p-md lg:p-lg flex flex-col">
                     <div className="flex items-center gap-sm mb-md">
                         <div className="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
                             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">star</span>
                         </div>
                         <h3 className="font-headline-md text-headline-md text-on-surface">Overall</h3>
                     </div>
-                    <div className="mt-auto flex items-center justify-between gap-md">
+                    {/* my-auto + py-sm keeps the value vertically centred in the
+                        card instead of stranding it at the bottom edge. */}
+                    <div className="my-auto py-sm flex items-center justify-between gap-md">
                         <span className="font-display text-display text-secondary tabular-nums">{overall}%</span>
                         <ScoreRing pct={Math.round(overall)} />
                     </div>
@@ -119,26 +127,26 @@ export default function Progress({ auth, overall = 0, avgScore = 0, streak = {},
                         icon="local_fire_department"
                         iconClasses="bg-error-container text-on-error-container"
                         label="Streak"
-                        value={{ text: `${streak.current || 0} Days`, classes: 'text-error' }}
-                        sublabel={`Longest: ${streak.longest || 0} days`}
+                        value={{ text: `${streak.current || 0} ${streak.current === 1 ? 'Day' : 'Days'}`, classes: 'text-error' }}
+                        sublabel={`Longest: ${streak.longest || 0} ${streak.longest === 1 ? 'day' : 'days'}`}
                     />
                 </div>
                 <div className="lg:col-span-1">
-                <MetricCard
-                    icon="ac_unit"
-                    iconClasses="bg-secondary-container text-on-secondary-container"
-                    label="Streak Freezes"
-                    value={{ text: `${freezesLeft}/2`, classes: 'text-secondary' }}
-                    sublabel={freezesLeft > 0 ? 'Auto-protects your streak' : 'Refills next month'}
-                />
-            </div>
-
+                    {/* "/2" mirrors StreakFreezeService::MONTHLY_LIMIT */}
+                    <MetricCard
+                        icon="ac_unit"
+                        iconClasses="bg-secondary-container text-on-secondary-container"
+                        label="Streak Freezes"
+                        value={{ text: `${freezesLeft}/2`, classes: 'text-secondary' }}
+                        sublabel={freezesLeft > 0 ? 'Auto-protects your streak' : 'Refills next month'}
+                    />
+                </div>
             </div>
 
             {/* Activity & Mastery */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-xl items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-xl">
                 {/* Streak Calendar */}
-                <div className="lg:col-span-2 bg-surface-container-lowest rounded-2xl chunky-border p-lg">
+                <div className="lg:col-span-2 h-full flex flex-col bg-surface-container-lowest rounded-2xl chunky-border p-lg">
                     <div className="flex flex-wrap justify-between items-center gap-sm mb-lg">
                         <h3 className="font-headline-lg text-headline-lg text-on-surface">Streak Calendar</h3>
                         <div className="flex items-center gap-xs" aria-hidden="true">
@@ -146,18 +154,22 @@ export default function Progress({ auth, overall = 0, avgScore = 0, streak = {},
                             <span className="w-3 h-3 rounded-sm bg-primary-container"></span>
                         </div>
                     </div>
-                    <div className="grid grid-cols-7 gap-1 sm:gap-xs">
-                        {streakCalendar.map((day) => (
-                            <div
-                                key={day.date}
-                                title={day.date}
-                                className={`aspect-square rounded-sm sm:rounded-md transition-colors ${
-                                    day.active ? 'bg-primary-container' : 'bg-surface-container-high'
-                                } ${day.date === today ? 'ring-2 ring-secondary ring-offset-1' : ''}`}
-                            ></div>
-                        ))}
+                    <div className="flex-1 flex flex-col justify-center">
+                        <div className="grid grid-cols-7 gap-1 sm:gap-xs">
+                            {streakCalendarCells.map((day, idx) =>
+                                day === null
+                                    ? <div key={`pad-${idx}`} className="aspect-square" aria-hidden="true"></div>
+                                    : <div
+                                        key={day.date}
+                                        title={day.date}
+                                        className={`aspect-square rounded-sm sm:rounded-md transition-colors ${
+                                            day.active ? 'bg-primary-container' : 'bg-surface-container-high'
+                                        } ${day.date === today ? 'ring-2 ring-secondary ring-offset-1' : ''}`}
+                                    ></div>
+                            )}
+                        </div>
                     </div>
-                    <div className="mt-lg flex items-center gap-sm text-on-surface-variant">
+                    <div className="mt-auto pt-lg flex items-center gap-sm text-on-surface-variant">
                         <span className="material-symbols-outlined text-primary" style={{ fontVariationSettings: "'FILL' 1" }} aria-hidden="true">
                             local_fire_department
                         </span>

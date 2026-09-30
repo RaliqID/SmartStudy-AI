@@ -56,7 +56,16 @@ class DatabaseSeeder extends Seeder
         // Demo content (subjects, units, materials, achievements, quests)
         $this->call(DemoContentSeeder::class);
 
+        // Rich, subject-specific course content. Runs AFTER DemoContentSeeder
+        // because it replaces that seeder's generic placeholder materials.
+        $this->call(CourseContentSeeder::class);
+
         // Quiz data for Mathematics
         $this->call(QuizSeeder::class);
+
+        // Student/teacher activity: classes, enrollments, completions, quiz
+        // attempts, progress, XP ledger, achievements, schedule, notifications.
+        // Runs last so it can reference materials and quizzes created above.
+        $this->call(ActivitySeeder::class);
     }
 }

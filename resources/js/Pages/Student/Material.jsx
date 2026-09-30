@@ -1,4 +1,5 @@
 import { Link, useForm, usePage } from '@inertiajs/react';
+import { useMemo } from 'react';
 import AppLayout from '@/Layouts/AppLayout';
 
 /**
@@ -8,19 +9,85 @@ import AppLayout from '@/Layouts/AppLayout';
  *        prev {id,title}|null, next {id,title}|null, isCompleted bool
  */
 
+/**
+ * Study notes are authored as HTML by teachers/admins, so they must be
+ * rendered as markup rather than shown as escaped source. Anything that can
+ * execute or load remote resources is stripped first (defence in depth: the
+ * same content is also sanitised on input by the admin/teacher forms).
+ */
+const ALLOWED_TAGS = new Set([
+    'H2', 'H3', 'H4', 'P', 'UL', 'OL', 'LI', 'STRONG', 'EM', 'B', 'I',
+    'U', 'BR', 'HR', 'BLOCKQUOTE', 'CODE', 'PRE', 'A',
+]);
+
+function sanitizeHtml(html) {
+    if (typeof window === 'undefined' || !html) return '';
+
+    // DOMParser does not execute scripts or fetch resources, so parsing in an
+    // inert document is safe; we then walk the tree and drop anything risky.
+    const doc = new DOMParser().parseFromString(String(html), 'text/html');
+    const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_ELEMENT);
+
+    const doomed = [];
+    while (walker.nextNode()) {
+        const el = walker.currentNode;
+        if (!ALLOWED_TAGS.has(el.tagName)) {
+            doomed.push(el);
+            continue;
+        }
+        // Keep only href on links; drop every other attribute (onclick, style,
+        // src, srcset, srcdoc, …) so no handler or remote load survives.
+        [...el.attributes].forEach((attr) => {
+            const keep = el.tagName === 'A' && attr.name === 'href';
+            if (!keep) el.removeAttribute(attr.name);
+        });
+        if (el.tagName === 'A') {
+            const href = el.getAttribute('href') || '';
+            // Block javascript:/data: URLs; force external links to open safely.
+            if (!/^(https?:|\/|#|mailto:)/i.test(href)) {
+                el.removeAttribute('href');
+            } else if (/^https?:/i.test(href)) {
+                el.setAttribute('target', '_blank');
+                el.setAttribute('rel', 'noopener noreferrer');
+            }
+        }
+    }
+    doomed.forEach((el) => el.replaceWith(...el.childNodes));
+
+    return doc.body.innerHTML;
+}
+
+/** Rich study notes: HTML if the content looks like markup, else plain text. */
 function ContentBlock({ text }) {
-    // Simple paragraph rendering: split on double newlines
+    const raw = String(text || '');
+
+    // Legacy plain-text notes (separated by blank lines) keep the old layout.
+    const safeHtml = useMemo(
+        () => sanitizeHtml(/<[a-z][\s\S]*>/i.test(raw) ? raw : ''),
+        [raw],
+    );
+
+    if (!safeHtml) {
+        return (
+            <div className="flex flex-col gap-md">
+                {raw
+                    .split(/\n{2,}/)
+                    .filter(Boolean)
+                    .map((para, i) => (
+                        <p key={i} className="font-body-md text-body-md text-on-surface-variant leading-relaxed whitespace-pre-wrap">
+                            {para}
+                        </p>
+                    ))}
+            </div>
+        );
+    }
+
     return (
-        <div className="flex flex-col gap-md">
-            {String(text || '')
-                .split(/\n{2,}/)
-                .filter(Boolean)
-                .map((para, i) => (
-                    <p key={i} className="font-body-md text-body-md text-on-surface-variant leading-relaxed whitespace-pre-wrap">
-                        {para}
-                    </p>
-                ))}
-        </div>
+        <div
+            className="material-notes font-body-md text-body-md text-on-surface-variant"
+            // Sanitised above: only an allow-list of tags and attributes survives.
+            dangerouslySetInnerHTML={{ __html: safeHtml }}
+        />
     );
 }
 

@@ -3,11 +3,17 @@
 namespace App\Services\AI;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 /**
  * SmartStudy AI — AI Tutor Service.
- * Provider: xkiro (OpenAI-compatible endpoint).
- * Config via .env: AI_BASE_URL, AI_API_KEY, AI_MODEL.
+ * Provider: 9router (Dev-Stack) — OpenAI-compatible gateway.
+ *
+ * All settings are read from config (config/services.php) rather than env()
+ * so that the service keeps working after `php artisan config:cache`, where
+ * env() returns null outside of config files.
+ *
+ * .env keys: AI_BASE_URL, AI_API_KEY, AI_MODEL, AI_TIMEOUT, AI_MAX_TOKENS
  */
 class AiTutorService
 {
@@ -23,11 +29,20 @@ class AiTutorService
 
     public function __construct()
     {
-        $this->baseUrl = rtrim((string) (config('services.ai.base_url', env('AI_BASE_URL', 'https://api.xkiro.com/v1'))), '/');
-        $this->apiKey = (string) (config('services.ai.api_key', env('AI_API_KEY', 'test-key')));
-        $this->model = (string) (config('services.ai.model', env('AI_MODEL', 'minimax/minimax-m2.7-highspeed:free')));
-        $this->timeout = (int) (config('services.ai.timeout', env('AI_TIMEOUT', 60)));
-        $this->maxTokens = (int) (config('services.ai.max_tokens', env('AI_MAX_TOKENS', 2048)));
+        $this->baseUrl = rtrim((string) config('services.ai.base_url'), '/');
+        $this->apiKey = (string) config('services.ai.api_key');
+        $this->model = (string) config('services.ai.model');
+        $this->timeout = (int) config('services.ai.timeout');
+        $this->maxTokens = (int) config('services.ai.max_tokens');
+    }
+
+    /**
+     * The service is only usable once an API key is configured. Controllers
+     * check this to return a friendly error instead of a provider 401.
+     */
+    public function isConfigured(): bool
+    {
+        return $this->apiKey !== '' && $this->baseUrl !== '';
     }
 
     /**
@@ -175,7 +190,7 @@ PROMPT;
             'content' => "Question: {$questionText}\nStudent's answer: {$studentAnswer}\nCorrect answer: {$correctAnswer}\n\nExplain briefly (max 3 sentences) why the student's answer is correct or incorrect, and the key concept to remember.",
         ]];
 
-        return $this->chat($messages, 'You are a quiz-review assistant. Be concise, kind, and clear.')->content;
+        return $this->chat($messages, 'You are a quiz-review assistant. Be concise, kind, and clear.')['content'];
     }
 
     /**

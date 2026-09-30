@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, router, useForm, usePage } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 
 /**
@@ -119,7 +119,6 @@ export default function Schedule({ auth, events = {}, month = '', subjects = [] 
 
     const firstDay = new Date(year, monthIdx - 1, 1).getDay();
     const daysInMonth = new Date(year, monthIdx, 0).getDate();
-    const todayInMonth = today.startsWith(monthStr);
 
     const goMonth = (delta) => {
         router.get(route('student.schedule'), { month: shiftMonth(monthStr, delta) }, { preserveState: true });

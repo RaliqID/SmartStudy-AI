@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AiConversation;
 use App\Models\AiMessage;
 use App\Models\Subject;
+use App\Models\User;
 use App\Services\AI\AiTutorService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,7 @@ class AiTutorController extends Controller
 {
     public function index(Request $request)
     {
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = $request->user();
 
         $conversations = $user->conversations()
@@ -82,7 +83,7 @@ class AiTutorController extends Controller
             'subject_id' => ['nullable', 'integer', 'exists:subjects,id'],
         ]);
 
-        /** @var \App\Models\User $user */
+        /** @var User $user */
         $user = $request->user();
         $messageText = $validated['message'];
         $conversationId = $validated['conversation_id'] ?? null;
@@ -156,35 +157,26 @@ class AiTutorController extends Controller
         );
 
         // Return SSE stream
-        return new StreamedResponse(function () use ($conversation, $userMessage, $aiMessages, $subject, $messageText) {
+        return new StreamedResponse(function () use ($conversation, $aiMessages, $subject, $messageText) {
             $fullResponse = '';
             try {
                 $service = app(AiTutorService::class);
 
-                // Fail fast with an actionable message when the 9router
-                // Dev-Stack gateway has no API key configured, instead of
-                // letting the provider reject the request with a 401.
-                if (! $service->isConfigured()) {
-                    echo 'data: '.json_encode([
-                        'error' => 'AI Tutor is not configured yet. Set AI_API_KEY for the 9router Dev-Stack gateway in your .env file.',
-                    ])."\n\n";
-                    @ob_flush();
-                    @flush();
-
-                    return;
-                }
-
                 // Emit conversation id first — frontend tracks new conversations
                 echo 'data: '.json_encode(['conversation_id' => $conversation->id])."\n\n";
-                if (ob_get_level() > 0) { @ob_flush(); }
+                if (ob_get_level() > 0) {
+                    @ob_flush();
+                }
                 @flush();
 
                 // Stream chunks
-                foreach ($service->chatStream($aiMessages, null) as $chunk) {
+                foreach ($service->chatStream($aiMessages, $subject?->name) as $chunk) {
                     $fullResponse .= $chunk;
-                    echo "data: " . json_encode(['chunk' => $chunk]) . "\n\n";
-                    if (ob_get_level() > 0) { @ob_flush(); }
-                @flush();
+                    echo 'data: '.json_encode(['chunk' => $chunk])."\n\n";
+                    if (ob_get_level() > 0) {
+                        @ob_flush();
+                    }
+                    @flush();
                 }
 
                 // After stream ends — generate related topics (opsional 3)
@@ -213,23 +205,27 @@ class AiTutorController extends Controller
                     $conversation->save();
                 }
 
-                echo "data: " . json_encode([
+                echo 'data: '.json_encode([
                     'done' => true,
                     'related_topics' => $relatedTopics,
-                ]) . "\n\n";
-                if (ob_get_level() > 0) { @ob_flush(); }
+                ])."\n\n";
+                if (ob_get_level() > 0) {
+                    @ob_flush();
+                }
                 @flush();
 
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 Log::error('AI Tutor stream error', [
                     'conversation_id' => $conversation->id,
                     'error' => $e->getMessage(),
                     'trace' => $e->getTraceAsString(),
                 ]);
 
-                // Send error chunk
-                echo "data: " . json_encode(['error' => 'AI Tutor temporarily unavailable. Please try again.']) . "\n\n";
-                if (ob_get_level() > 0) { @ob_flush(); }
+                // Send error chunk so frontend receives notice
+                echo 'data: '.json_encode(['error' => 'AI Tutor mengalami kendala sementara. Silakan coba kirim ulang pertanyaanmu.'])."\n\n";
+                if (ob_get_level() > 0) {
+                    @ob_flush();
+                }
                 @flush();
             }
         }, 200, [

@@ -74,6 +74,9 @@ export default function AppLayout({ auth, children }) {
     const isCurrent = (href) => {
         // Route-name matching doesn't work with plain path hrefs — compare URL pathname
         const path = window.location.pathname;
+        if ((href === '/student/settings' || href === '/profile') && (path === '/profile' || path === '/student/settings')) {
+            return true;
+        }
         return path === href || path.startsWith(`${href}/`);
     };
 

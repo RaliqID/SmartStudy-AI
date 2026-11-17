@@ -232,6 +232,9 @@ export default function AiTutor({ auth, conversations = [], currentConversation 
                                 if (Array.isArray(data.related_topics)) {
                                     topics = data.related_topics;
                                 }
+                                if (data.error) {
+                                    full += (full ? '\n\n' : '') + data.error;
+                                }
                                 const chunk = data.chunk ?? data.content ?? data.delta ?? data.text;
                                 if (typeof chunk === 'string') full += chunk;
                             } catch {
@@ -242,8 +245,9 @@ export default function AiTutor({ auth, conversations = [], currentConversation 
                         }
                     }
                 }
-            } catch {
-                full = full || 'Sorry, something went wrong. Please try again.';
+            } catch (err) {
+                console.error('Chat error:', err);
+                full = full || 'Maaf, terjadi kendala saat memproses jawaban. Silakan coba kirim ulang pertanyaanmu.';
             } finally {
                 setStreaming(false);
                 setStreamText('');

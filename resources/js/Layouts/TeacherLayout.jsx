@@ -48,6 +48,9 @@ export default function TeacherLayout({ auth, children }) {
 
     const isCurrent = (href) => {
         const path = window.location.pathname;
+        if ((href === '/profile' || href === '/teacher/settings') && (path === '/profile' || path === '/teacher/settings')) {
+            return true;
+        }
         return path === href || path.startsWith(`${href}/`);
     };
 

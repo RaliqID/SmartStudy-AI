@@ -1,20 +1,22 @@
 <?php
 
-use App\Models\User;
-use App\Models\Subject;
-use App\Models\Unit;
+use App\Events\UserLoggedIn;
 use App\Models\Material;
 use App\Models\MaterialCompletion;
-use App\Models\Quiz;
+use App\Models\Notification;
 use App\Models\Question;
 use App\Models\QuestionOption;
+use App\Models\Quiz;
 use App\Models\QuizAttempt;
+use App\Models\Subject;
+use App\Models\Unit;
+use App\Models\User;
 use App\Models\XpTransaction;
-use App\Models\Notification;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
-uses(Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(RefreshDatabase::class);
 
 // ─── Helpers ───────────────────────────────────────────────────
 
@@ -30,12 +32,13 @@ function makeStudent(array $attrs = []): User
     makeRoles();
     $u = User::create(array_merge([
         'name' => 'Student Test',
-        'email' => 'student' . uniqid() . '@test.ai',
+        'email' => 'student'.uniqid().'@test.ai',
         'password' => Hash::make('password'),
         'email_verified_at' => now(),
         'is_active' => true,
     ], $attrs));
     $u->assignRole('student');
+
     return $u;
 }
 
@@ -44,12 +47,13 @@ function makeTeacher(array $attrs = []): User
     makeRoles();
     $u = User::create(array_merge([
         'name' => 'Teacher Test',
-        'email' => 'teacher' . uniqid() . '@test.ai',
+        'email' => 'teacher'.uniqid().'@test.ai',
         'password' => Hash::make('password'),
         'email_verified_at' => now(),
         'is_active' => true,
     ], $attrs));
     $u->assignRole('teacher');
+
     return $u;
 }
 
@@ -64,6 +68,7 @@ function makeAdmin(): User
         'is_active' => true,
     ]);
     $u->assignRole('admin');
+
     return $u;
 }
 
@@ -72,6 +77,7 @@ function makeContent(): array
     $subject = Subject::create(['name' => 'Math', 'slug' => 'math', 'is_active' => true]);
     $unit = Unit::create(['subject_id' => $subject->id, 'title' => 'Unit 1', 'order_index' => 1, 'is_active' => true]);
     $material = Material::create(['unit_id' => $unit->id, 'title' => 'Lesson 1', 'content_type' => 'text', 'text_content' => 'Hello', 'order_index' => 1, 'is_active' => true]);
+
     return [$subject, $unit, $material];
 }
 
@@ -88,6 +94,7 @@ function makeQuiz(User $teacher, Subject $subject): Quiz
         QuestionOption::create(['question_id' => $q->id, 'option_text' => '2', 'is_correct' => true, 'order_index' => 1]);
         QuestionOption::create(['question_id' => $q->id, 'option_text' => '3', 'is_correct' => false, 'order_index' => 2]);
     }
+
     return $quiz;
 }
 
@@ -252,7 +259,7 @@ test('streak freeze auto-protects one missed day', function () {
     $student->last_active_at = now()->subDays(2); // gap 2 hari
     $student->save();
 
-    event(new App\Events\UserLoggedIn($student));
+    event(new UserLoggedIn($student));
     $student->refresh();
 
     expect($student->current_streak)->toBe(6) // streak selamat 5→6
@@ -268,7 +275,7 @@ test('streak resets when monthly freeze quota exhausted', function () {
     $student->last_active_at = now()->subDays(2);
     $student->save();
 
-    event(new App\Events\UserLoggedIn($student));
+    event(new UserLoggedIn($student));
     $student->refresh();
 
     expect($student->current_streak)->toBe(1); // reset
@@ -362,7 +369,7 @@ test('student pages all render', function () {
     [$subject, $unit, $material] = makeContent();
 
     foreach ([
-        '/student/dashboard', '/student/subjects', "/student/subjects/math",
+        '/student/dashboard', '/student/subjects', '/student/subjects/math',
         '/student/quiz', '/student/ai', '/student/progress',
         '/student/schedule', '/student/notifications', '/student/leaderboard',
         '/profile',
@@ -393,4 +400,31 @@ test('admin pages all render', function () {
     ] as $path) {
         $this->actingAs($admin)->get($path)->assertOk();
     }
+});
+
+test('profile page renders properly for each role', function () {
+    $student = makeStudent();
+    $this->actingAs($student)->get('/profile')->assertOk();
+    $this->actingAs($student)->get('/student/settings')->assertRedirect('/profile');
+
+    $teacher = makeTeacher();
+    $this->actingAs($teacher)->get('/profile')->assertOk();
+    $this->actingAs($teacher)->get('/teacher/settings')->assertRedirect('/profile');
+
+    $admin = makeAdmin();
+    $this->actingAs($admin)->get('/profile')->assertOk();
+    $this->actingAs($admin)->get('/admin/profile')->assertRedirect('/profile');
+});
+
+test('ai tutor responds to student message with streamed response', function () {
+    $student = makeStudent();
+    [$subject] = makeContent();
+
+    $response = $this->actingAs($student)->post('/student/ai/chat', [
+        'message' => 'Halo, bantu saya belajar aljabar',
+        'subject_id' => $subject->id,
+    ]);
+
+    $response->assertOk();
+    expect($response->headers->get('Content-Type'))->toContain('text/event-stream');
 });
